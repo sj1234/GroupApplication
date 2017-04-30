@@ -64,7 +64,7 @@ public class MyReceiver extends BroadcastReceiver {
                     // 부재중전화 횟수
                     int calllogCount = getCallLog(incomingNumber);
                     // 모드에 따라 수신음 결과 분석
-                    ReceiveAnalysisResult(contactNumber, calllogCount);
+                    ReceiveAnalysisResult(contactNumber, calllogCount, state);
                     break;
                 case TelephonyManager.CALL_STATE_IDLE:
                     Log.i(Tag, "call CALL_STATE_IDLE");
@@ -180,32 +180,13 @@ public class MyReceiver extends BroadcastReceiver {
 
 
     // 벨소리 설정 정보 넘기기
-    private void ReceiveAnalysisResult(int contactNumber, int calllogCount){
+    private void ReceiveAnalysisResult(int contactNumber, int calllogCount, int state){
         // contactNumber = 1이면 즐겨찾기 2이면 즐겨찾기 외에 저장된 번호 3이면 모르는 번호
         // calllogCount = 부재중전화 횟수
 
-        // 모드 받아와 분석하기!
-
-        ChangeRing ring = new ChangeRing();
-        ring.changering(1);
-        ;
-    }
-}
-
-class ChangeRing{
-    public void changering(int i) {
-        // int i 가 0이면 통화종료 1이면 벨소리 2이면 진동 3이면 무음
-        /*
-        switch(i)
-        {
-            case 1:
-            ringring();
-            break;
+        // 부재중이 4이면 무음으로 만들기
+        if(calllogCount==4) {
+            handleRing handle = new handleRing(callcontext, 3, state);
         }
-         */
-    }
-
-    public void ringring(){
-        // 벨소리로 변경;
     }
 }
