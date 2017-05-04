@@ -68,7 +68,7 @@ public class DBManager extends SQLiteOpenHelper {
     }
 
     public ArrayList<String> getModesName(){
-        String string = "SELECT NAME, FROM MODE";
+        String string = "SELECT NAME FROM MODE";
         SQLiteDatabase db = getReadableDatabase();
 
         ArrayList<String> modes = new ArrayList<String>();
