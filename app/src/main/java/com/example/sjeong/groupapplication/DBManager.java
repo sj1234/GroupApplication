@@ -68,7 +68,7 @@ public class DBManager extends SQLiteOpenHelper {
     }
 
     public ArrayList<String> getModesName(){
-        String string = "SELECT NAME FROM MODE";
+        String string = "SELECT NAME, STAR FROM MODE";
         SQLiteDatabase db = getReadableDatabase();
 
         ArrayList<String> modes = new ArrayList<String>();
@@ -80,6 +80,13 @@ public class DBManager extends SQLiteOpenHelper {
                 Log.i("test DBManager", cursor.getString(0));
             }
         }
+        return modes;
+    }
+
+    public ArrayList<String> getAll(){
+        String string = "SELECT * FROM MODE";
+        SQLiteDatabase db = getReadableDatabase();
+        ArrayList<String> modes = new ArrayList<String>();
         return modes;
     }
 
