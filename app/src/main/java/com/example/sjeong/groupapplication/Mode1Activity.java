@@ -291,14 +291,12 @@ public class Mode1Activity extends AppCompatActivity  implements OnClickListener
 
         Cursor c1 = db.rawQuery(SQL, args);
         int recordCount = c1.getCount();
-        int z;
 
         for (int i = 0; i < recordCount; i++) {
             c1.moveToNext();
             String name = c1.getString(0);
             int age = c1.getInt(1);
             String phone = c1.getString(2);
-
 
         }
 
