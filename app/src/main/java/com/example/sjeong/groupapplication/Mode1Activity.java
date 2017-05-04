@@ -291,7 +291,7 @@ public class Mode1Activity extends AppCompatActivity  implements OnClickListener
 
         Cursor c1 = db.rawQuery(SQL, args);
         int recordCount = c1.getCount();
-
+        int z;
 
         for (int i = 0; i < recordCount; i++) {
             c1.moveToNext();
