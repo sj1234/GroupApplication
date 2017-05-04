@@ -15,7 +15,7 @@ import android.app.Activity;
 
 public class MainActivity extends AppCompatActivity {
 
-
+int a =0;
     Button bttn_option;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
