@@ -21,6 +21,7 @@ import android.database.Cursor;
 import android.view.View.*;
 
 public class Mode1Activity extends AppCompatActivity  implements OnClickListener {
+    int z =0;
     String databaseName = "db";
     String tableName = "mode";
     TextView status;
