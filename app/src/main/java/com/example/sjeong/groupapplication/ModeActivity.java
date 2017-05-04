@@ -5,8 +5,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Adapter;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CursorAdapter;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ModeActivity extends AppCompatActivity implements View.OnClickListener{
@@ -15,15 +21,15 @@ public class ModeActivity extends AppCompatActivity implements View.OnClickListe
     private DBManager dbManager;
     private Button mode1;
     private Button mode2;
-
+    ArrayAdapter<String> arrayAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mode);
-
-        // DB생성
+      // DB생성
         if(dbManager==null) {
             dbManager = new DBManager(ModeActivity.this, "AlarmCall", null, 1);
+            //dbManager.DeleteDB();
             dbManager.ReadDB();
         }
 
@@ -33,18 +39,24 @@ public class ModeActivity extends AppCompatActivity implements View.OnClickListe
         mode2 = (Button) this.findViewById(R.id.mode2);
         mode2.setOnClickListener((View.OnClickListener) this);
 
-        List modes = dbManager.getModesName();
+        ArrayList<String> modes = dbManager.getModesName();
         Log.i(Tag,"mod size" +modes.size());
         if(modes.size()>1) {
             mode1.setText(modes.get(0).toString());
             mode2.setText(modes.get(1).toString());
         }
+        arrayAdapter= new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, modes);
+
+        ListView list=(ListView) findViewById(R.id.listView);
+
+        list.setAdapter(arrayAdapter);
 
         Button makemode = (Button) this.findViewById(R.id.makemode);
         makemode.setOnClickListener((View.OnClickListener) this);
 
         Button option = (Button) this.findViewById(R.id.option);
         option.setOnClickListener((View.OnClickListener) this);
+
     }
 
     @Override

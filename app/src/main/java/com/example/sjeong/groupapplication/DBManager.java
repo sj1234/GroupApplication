@@ -5,6 +5,11 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.CursorAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -37,6 +42,13 @@ public class DBManager extends SQLiteOpenHelper {
 
     public void ReadDB() { SQLiteDatabase db = getReadableDatabase(); }
 
+    public void DeleteDB() {
+        SQLiteDatabase db = getWritableDatabase();
+        String insertdb = "DELETE FROM MODE";
+        db.execSQL(insertdb);
+        }
+
+
     public void insertMode(Mode mode){
         SQLiteDatabase db = getWritableDatabase();
         String insertdb = "INSERT INTO MODE("+"NAME, STAR, CONTACT, UNKNOWN, TIME, COUNT)"+"VALUES(?, ?, ?, ?, ?, ?)";
@@ -55,11 +67,11 @@ public class DBManager extends SQLiteOpenHelper {
         Log.i("test DB", "update : " + mode.getName()+", "+mode.getStar()+", "+ mode.getContact()+", "+ mode.getUnknown()+", "+ mode.getTime()+", "+ mode.getCount());
     }
 
-    public List getModesName(){
+    public ArrayList<String> getModesName(){
         String string = "SELECT NAME FROM MODE";
         SQLiteDatabase db = getReadableDatabase();
 
-        List modes = new ArrayList();
+        ArrayList<String> modes = new ArrayList<String>();
 
         Cursor cursor = db.rawQuery(string, null);
         if(cursor.moveToFirst()) {
@@ -102,4 +114,36 @@ public class DBManager extends SQLiteOpenHelper {
 
         return mode;
     }
+
+
+}
+class MyCursorAdapter extends CursorAdapter
+{
+
+    @SuppressWarnings("deprecation")
+    public MyCursorAdapter(Context context, Cursor c) {
+        super(context, c);
+    }
+
+    @Override
+    public void bindView(View view, Context context, Cursor cursor) {
+        TextView tvName = (TextView) view.findViewById( R.id.tv_name );
+        TextView tvAge = (TextView) view.findViewById( R.id.tv_age );
+
+        String name = cursor.getString( cursor.getColumnIndex("STAR") );
+        String age = cursor.getString( cursor.getColumnIndex("CONTACT") );
+
+        Log.d("스트링 확인", name + ", " + age);
+
+        tvName.setText( name );
+        tvAge.setText( age );
+    }
+
+    @Override
+    public View newView(Context context, Cursor cursor, ViewGroup parent) {
+        LayoutInflater inflater = LayoutInflater.from( context );
+        View v = inflater.inflate( R.layout.list_item, parent, false );
+        return v;
+    }
+
 }
