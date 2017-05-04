@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.sjeong.groupapplication">
 
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    // 푸시알림
+    <uses-permission android:name="android.permission.MODIFY_PHONE_STATE" />
+    // 전화 차단
     <uses-permission android:name="android.permission.CALL_PHONE" />
     // 전화수신확인
     <uses-permission android:name="android.permission.READ_CALL_LOG" />
@@ -11,7 +15,7 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     // 전화수신확인
     <uses-permission android:name="android.permission.VIBRATE" />
-    //벨소리 변경 권한
+    // 진동 권한
 
     <application
         android:allowBackup="true"
@@ -25,21 +29,31 @@
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-
-
             </intent-filter>
         </activity>
-        <activity  android:name =".Mode1Activity"/>
-        <activity  android:name =".OptionActivity"/>
+        <activity android:name=".Mode1Activity" />
+        <activity android:name=".OptionActivity" />
 
-        <receiver
-            android:name=".MyReceiver"
-            android:enabled="true"
-            android:exported="true">
+        <receiver android:name=".MyReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.PHONE_STATE" />
             </intent-filter>
         </receiver>
+
+        <activity android:name=".ModeActivity" />
+        <activity android:name=".ModeSetActivity"></activity>
+
+        <activity
+            android:name=".PopupActivity"
+            android:screenOrientation="sensorPortrait"
+            android:showOnLockScreen="true"
+            android:theme="@android:style/Theme.DeviceDefault.Light.Dialog" />
+
+        <receiver
+            android:name=".LaterCall"
+            android:enabled="true"
+            android:exported="true" />
+
 
     </application>
 

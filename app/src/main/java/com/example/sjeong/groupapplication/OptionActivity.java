@@ -1,14 +1,11 @@
 package com.example.sjeong.groupapplication;
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Button;
-import android.widget.Toast;
-import android.content.DialogInterface;
-import android.app.AlertDialog;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 
 
 
@@ -46,7 +43,7 @@ public class OptionActivity extends AppCompatActivity implements OnClickListener
 
             case R.id.bttn_mode:
 
-                Intent intent4 = new Intent(OptionActivity.this,Mode1Activity.class);
+                Intent intent4 = new Intent(OptionActivity.this,ModeActivity.class);
 
                 startActivity(intent4);
                 overridePendingTransition(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right);
