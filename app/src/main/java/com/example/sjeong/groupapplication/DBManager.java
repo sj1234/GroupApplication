@@ -83,7 +83,7 @@ public class DBManager extends SQLiteOpenHelper {
         return modes;
     }
 
-    public ArrayList<String> getType(){   // 아직 완성안됨
+    public ArrayList<String> getType(){   // 아직 완성안됨 아마 사용안할 듯
         String string = "SELECT STAR, CONTACT, UNKNOWN FROM MODE";
         SQLiteDatabase db = getReadableDatabase();
         ArrayList<String> modes = new ArrayList<String>();
