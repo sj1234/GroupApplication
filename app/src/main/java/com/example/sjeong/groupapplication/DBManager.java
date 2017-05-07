@@ -31,6 +31,9 @@ public class DBManager extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String table = "CREATE TABLE MODE"+ "(NAME TEXT PRIMARY KEY NOT NULL,"+"STAR INTEGER NOT NULL,"+"CONTACT INTEGER NOT NULL,"+"UNKNOWN INTEGER NOT NULL,"+" TIME INTEGER NOT NULL,"+" COUNT INTEGER NOT NULL)";
         db.execSQL(table);
+        table = "CREATE TABLE SCHEDULE(NAME TEXT PRIMARY KEY NOT NULL, ORG_RING TEXT, CHG_RING TEXT, START TEXT, END TEXT, " +
+                "BOOLEAN SUN, BOOLEAN MON, BOOLEAN TUE, BOOLEAN WED, BOOLEAN THU, BOOLEAN FRI, BOOLEAN SAT)";
+        db.execSQL(table);
         Toast.makeText(dbcontext, "create db table", Toast.LENGTH_LONG).show();
         Log.i("test DB", "create db table");
     }
@@ -42,9 +45,11 @@ public class DBManager extends SQLiteOpenHelper {
 
     public void ReadDB() { SQLiteDatabase db = getReadableDatabase(); }
 
-    public void DeleteDB() {
+    public void DeleteDB() {  // DB 리셋용
         SQLiteDatabase db = getWritableDatabase();
         String insertdb = "DELETE FROM MODE";
+        db.execSQL(insertdb);
+        insertdb = "DELETE FROM SCHEDULE";
         db.execSQL(insertdb);
         }
 
@@ -75,24 +80,26 @@ public class DBManager extends SQLiteOpenHelper {
 
         Cursor cursor = db.rawQuery(string, null);
         if(cursor.moveToFirst()) {
-            while (cursor.moveToNext()) {
+            do {
                 modes.add(cursor.getString(0));
                 Log.i("test DBManager", cursor.getString(0));
             }
+            while (cursor.moveToNext());
         }
         return modes;
     }
 
     public ArrayList<String> getType(){   // 아직 완성안됨 아마 사용안할 듯
-        String string = "SELECT STAR, CONTACT, UNKNOWN FROM MODE";
+        String string = "SELECT STAR, CONTACT, UNKNOWN FROM MODE WHERE NAME= ?;";
         SQLiteDatabase db = getReadableDatabase();
         ArrayList<String> modes = new ArrayList<String>();
-        Cursor cursor = db.rawQuery(string, null);
+        Cursor cursor = db.rawQuery(string, null); // null에가
         if(cursor.moveToFirst()) {
-            while (cursor.moveToNext()) {
+            do {
                 modes.add(cursor.getString(0));
                 Log.i("test DBManager", cursor.getString(0));
             }
+            while (cursor.moveToNext());
         }
         return modes;
     }
@@ -108,8 +115,9 @@ public class DBManager extends SQLiteOpenHelper {
         Mode mode=new Mode();
 
         Log.i("test DBManager", "get mode3");
-        if(cursor.moveToFirst()) {
-            while (cursor.moveToNext()) {
+        if(cursor.moveToFirst())
+        {
+            do {
                 Log.i("test DBManager", cursor.getString(0));
                 if (cursor.getString(0).equals(modename)) {
                     mode.setName(cursor.getString(0));
@@ -122,6 +130,7 @@ public class DBManager extends SQLiteOpenHelper {
                     return mode;
                 }
             }
+                while (cursor.moveToNext());
         }
         else
             Log.i("test DBManager", "get mode null");
@@ -131,7 +140,7 @@ public class DBManager extends SQLiteOpenHelper {
 
 
 }
-class MyCursorAdapter extends CursorAdapter
+class MyCursorAdapter extends CursorAdapter // 사용안함
 {
 
     @SuppressWarnings("deprecation")

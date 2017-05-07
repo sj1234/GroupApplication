@@ -6,28 +6,32 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Adapter;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CursorAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ModeActivity extends AppCompatActivity implements View.OnClickListener{
+public class ModeActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private String Tag="test ModeActive";
+    private String Tag = "test ModeActive";
     private DBManager dbManager;
     private Button mode1;
     private Button mode2;
     ArrayAdapter<String> arrayAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mode);
-      // DB생성
-        if(dbManager==null) {
+        // DB생성
+        if (dbManager == null) {
             dbManager = new DBManager(ModeActivity.this, "AlarmCall", null, 1);
             //dbManager.DeleteDB();
             dbManager.ReadDB();
@@ -40,14 +44,17 @@ public class ModeActivity extends AppCompatActivity implements View.OnClickListe
         mode2.setOnClickListener((View.OnClickListener) this);
 
         ArrayList<String> modes = dbManager.getModesName();
-        Log.i(Tag,"mod size" +modes.size());
-        if(modes.size()>1) {
+        Log.i(Tag, "mod size" + modes.size());
+        if (modes.size() > 1) {
             mode1.setText(modes.get(0).toString());
             mode2.setText(modes.get(1).toString());
         }
-        arrayAdapter= new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, modes);
+        arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, modes);
 
-        ListView list=(ListView) findViewById(R.id.listView);
+        ListView list = (ListView) findViewById(R.id.listView);
+        //list.setOnItemClickListener( new ListViewItemClickListener() );
+        //list.setOnItemLongClickListener( new ListViewItemLongClickListener() );
+
 
         list.setAdapter(arrayAdapter);
 
@@ -65,12 +72,12 @@ public class ModeActivity extends AppCompatActivity implements View.OnClickListe
 
         switch (v.getId()) {
             case R.id.mode1:
-                intent.putExtra("Name",mode1.getText());
-                Log.i(Tag,"mod name" +mode1.getText());
+                intent.putExtra("Name", mode1.getText());
+                Log.i(Tag, "mod name" + mode1.getText());
                 startActivity(intent);
                 break;
             case R.id.mode2:
-                intent.putExtra("Name",mode2.getText());
+                intent.putExtra("Name", mode2.getText());
                 startActivity(intent);
                 break;
             case R.id.makemode:
@@ -84,5 +91,17 @@ public class ModeActivity extends AppCompatActivity implements View.OnClickListe
                 break;
         }
     }
-
 }
+/*
+    private AdapterView.OnItemClickListener ListViewItemClickListener = new AdapterView.OnItemClickListener() {
+        public void onItemClick(AdapterView<?> adapterView, View clickedView, int pos, long id) {
+            String toastMessage = ((TextView) clickedView).getText().toString() + " is selected.";
+            Toast.makeText(
+                    getApplicationContext(),
+                    toastMessage,
+                    Toast.LENGTH_SHORT
+            ).show();
+        }
+    }
+
+*/
