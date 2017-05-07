@@ -89,11 +89,12 @@ public class DBManager extends SQLiteOpenHelper {
         return modes;
     }
 
-    public ArrayList<String> getArray(){   // 아직 완성안됨 아마 사용안할 듯
+    public ArrayList<String> getArray(){   // 아직 완성안됨
         String string = "SELECT STAR, CONTACT, UNKNOWN FROM MODE WHERE NAME= ?;";
+        String getExtra[] = null;
         SQLiteDatabase db = getReadableDatabase();
         ArrayList<String> modes = new ArrayList<String>();
-        Cursor cursor = db.rawQuery(string, null); // null에가
+        Cursor cursor = db.rawQuery(string, getExtra); // getExtra 에 putExtra값 받아옴
         if(cursor.moveToFirst()) {
             do {
                 modes.add(cursor.getString(0));

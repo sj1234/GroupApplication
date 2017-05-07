@@ -93,7 +93,7 @@ public class ModeActivity extends AppCompatActivity implements View.OnClickListe
     AdapterView.OnItemClickListener ListViewItemClickListener = new AdapterView.OnItemClickListener() {
         public void onItemClick(AdapterView<?> parentView, View clickedView, int position, long id) {
             Intent intent = new Intent(ModeActivity.this, ModeSetActivity.class);
-            //((TextView)clickedView).
+            intent.putExtra("Name",((TextView)clickedView).getText().toString());
             startActivity(intent);
         }
     };
