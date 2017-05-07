@@ -89,7 +89,7 @@ public class DBManager extends SQLiteOpenHelper {
         return modes;
     }
 
-    public ArrayList<String> getType(){   // 아직 완성안됨 아마 사용안할 듯
+    public ArrayList<String> getArray(){   // 아직 완성안됨 아마 사용안할 듯
         String string = "SELECT STAR, CONTACT, UNKNOWN FROM MODE WHERE NAME= ?;";
         SQLiteDatabase db = getReadableDatabase();
         ArrayList<String> modes = new ArrayList<String>();
@@ -97,6 +97,8 @@ public class DBManager extends SQLiteOpenHelper {
         if(cursor.moveToFirst()) {
             do {
                 modes.add(cursor.getString(0));
+                modes.add(cursor.getString(1));
+                modes.add(cursor.getString(2));
                 Log.i("test DBManager", cursor.getString(0));
             }
             while (cursor.moveToNext());
@@ -136,37 +138,6 @@ public class DBManager extends SQLiteOpenHelper {
             Log.i("test DBManager", "get mode null");
 
         return mode;
-    }
-
-
-}
-class MyCursorAdapter extends CursorAdapter // 사용안함
-{
-
-    @SuppressWarnings("deprecation")
-    public MyCursorAdapter(Context context, Cursor c) {
-        super(context, c);
-    }
-
-    @Override
-    public void bindView(View view, Context context, Cursor cursor) {
-        TextView tvName = (TextView) view.findViewById( R.id.tv_name );
-        TextView tvAge = (TextView) view.findViewById( R.id.tv_age );
-
-        String name = cursor.getString( cursor.getColumnIndex("STAR") );
-        String age = cursor.getString( cursor.getColumnIndex("CONTACT") );
-
-        Log.d("스트링 확인", name + ", " + age);
-
-        tvName.setText( name );
-        tvAge.setText( age );
-    }
-
-    @Override
-    public View newView(Context context, Cursor cursor, ViewGroup parent) {
-        LayoutInflater inflater = LayoutInflater.from( context );
-        View v = inflater.inflate( R.layout.list_item, parent, false );
-        return v;
     }
 
 }

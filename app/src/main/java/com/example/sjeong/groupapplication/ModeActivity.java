@@ -52,12 +52,10 @@ public class ModeActivity extends AppCompatActivity implements View.OnClickListe
         arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, modes);
 
         ListView list = (ListView) findViewById(R.id.listView);
-        //list.setOnItemClickListener( new ListViewItemClickListener() );
-        //list.setOnItemLongClickListener( new ListViewItemLongClickListener() );
 
 
         list.setAdapter(arrayAdapter);
-
+        list.setOnItemClickListener(ListViewItemClickListener);
         Button makemode = (Button) this.findViewById(R.id.makemode);
         makemode.setOnClickListener((View.OnClickListener) this);
 
@@ -91,17 +89,12 @@ public class ModeActivity extends AppCompatActivity implements View.OnClickListe
                 break;
         }
     }
-}
-/*
-    private AdapterView.OnItemClickListener ListViewItemClickListener = new AdapterView.OnItemClickListener() {
-        public void onItemClick(AdapterView<?> adapterView, View clickedView, int pos, long id) {
-            String toastMessage = ((TextView) clickedView).getText().toString() + " is selected.";
-            Toast.makeText(
-                    getApplicationContext(),
-                    toastMessage,
-                    Toast.LENGTH_SHORT
-            ).show();
-        }
-    }
 
-*/
+    AdapterView.OnItemClickListener ListViewItemClickListener = new AdapterView.OnItemClickListener() {
+        public void onItemClick(AdapterView<?> parentView, View clickedView, int position, long id) {
+            Intent intent = new Intent(ModeActivity.this, ModeSetActivity.class);
+            //((TextView)clickedView).
+            startActivity(intent);
+        }
+    };
+}

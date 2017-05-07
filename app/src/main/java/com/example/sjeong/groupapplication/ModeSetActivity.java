@@ -181,4 +181,5 @@ public class ModeSetActivity extends AppCompatActivity implements View.OnClickLi
                 break;
         }
     }
+
 }
