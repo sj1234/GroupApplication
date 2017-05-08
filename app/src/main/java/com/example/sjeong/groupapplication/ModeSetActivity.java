@@ -10,8 +10,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,7 +26,7 @@ public class ModeSetActivity extends AppCompatActivity implements View.OnClickLi
     private Mode mode;
     private String name;
 
-    private TextView startxt,contacttxt,unknowntxt;
+    private TextView startxt,contacttxt,unknowntxt,timetxt,counttxt;
     private EditText modename;
 
     @Override
@@ -58,6 +60,8 @@ public class ModeSetActivity extends AppCompatActivity implements View.OnClickLi
         startxt = (TextView) findViewById(R.id.startxt);
         contacttxt = (TextView) findViewById(R.id.contacttxt);
         unknowntxt = (TextView) findViewById(R.id.unknowntxt);
+        timetxt = (TextView) findViewById(R.id.timetxt);
+        counttxt = (TextView) findViewById(R.id.counttxt);
 
         mode = new Mode();
 
@@ -75,6 +79,32 @@ public class ModeSetActivity extends AppCompatActivity implements View.OnClickLi
             contacttxt.setText("수신음을 선택해 주세요");
             unknowntxt.setText("수신음을 선택해 주세요");
         }
+        Spinner s1 = (Spinner)findViewById(R.id.timespinner);
+        s1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view,
+                                       int position, long id) {
+                timetxt.setText("TIME : "+parent.getItemAtPosition(position));
+                mode.setTime(Integer.parseInt(""+parent.getItemAtPosition(position)));
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {}
+        });
+        Spinner s2 = (Spinner)findViewById(R.id.countspinner);
+        s2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view,
+                                       int position, long id) {
+                counttxt.setText("COUNT : "+parent.getItemAtPosition(position));
+                mode.setCount(Integer.parseInt(""+parent.getItemAtPosition(position)));
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {}
+        });
+
+
+
+
     }
 
     @Override
