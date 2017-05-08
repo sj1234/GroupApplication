@@ -22,18 +22,34 @@
         tools:layout_editor_absoluteX="-16dp"
         android:layout_weight="10"/>
 
-    <Button
-        android:id="@+id/makemode"
-        android:layout_width="wrap_content"
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Make mode"
-        android:layout_weight="1"/>
-    <Button
-        android:id="@+id/option"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Back"
-        android:layout_weight="1"/>
+        android:layout_weight="1">
+
+        <Button
+            android:id="@+id/makemode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Make mode"
+            android:layout_weight="1"/>
+
+        <Button
+            android:id="@+id/nomode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No mode"
+            android:layout_weight="1"/>
+
+        <Button
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Back"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
 
 
 </LinearLayout>

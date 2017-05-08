@@ -69,8 +69,8 @@ public class ModeSetActivity extends AppCompatActivity implements View.OnClickLi
             mode=dbManager.getMode(name);
             modename.setText(name);
             startxt.setText( RingInformation(mode.getStar()));
-            contacttxt.setText( RingInformation(mode.getContact()));
-            unknowntxt.setText( RingInformation(mode.getUnknown()));
+            contacttxt.setText(RingInformation(mode.getContact()));
+            unknowntxt.setText(RingInformation(mode.getUnknown()));
         }
         else {
             mode = new Mode();
@@ -205,8 +205,6 @@ public class ModeSetActivity extends AppCompatActivity implements View.OnClickLi
                 break;
             case R.id.set:
                 if(name==null) {
-                    mode.setTime(5);
-                    mode.setCount(3);
                     mode.setName(modename.getText().toString());
                     dbManager.insertMode(mode);
                 }
