@@ -35,12 +35,20 @@ public class MyReceiver extends BroadcastReceiver {
     private PopupActivity pop;
     private  HandleRing handleRing;
     private SharedPreferences preferences;
+    private int latercallonoff;
 
 
     @Override
     public void onReceive(Context context, Intent intent) {
         // TODO: This method is called when the BroadcastReceiver is receiving
         // an Intent broadcast.
+
+        // 나중에 알림 정보
+        preferences = context.getSharedPreferences("Later", Activity.MODE_PRIVATE);
+        if(preferences.getString("onoff", "off").equals("off"))
+            latercallonoff=0;
+        else
+            latercallonoff=1;
 
         // 현재모드 받아오기
         preferences = context.getSharedPreferences("Mode", Activity.MODE_PRIVATE);
@@ -120,7 +128,7 @@ public class MyReceiver extends BroadcastReceiver {
 
         if(count<=calllogCount+1) {
             handleRing.changeRing(1); // 긴급전화는 벨소리
-            Popup(incomingNumber); // 팝업
+            if (latercallonoff==1) Popup(incomingNumber); // 팝업
             return;
         }
 
@@ -131,7 +139,7 @@ public class MyReceiver extends BroadcastReceiver {
                     EndCall();
                 else {
                     handleRing.changeRing(star);
-                    Popup(incomingNumber); // 팝업
+                    if (latercallonoff==1)Popup(incomingNumber); // 팝업
                 }
                 break;
             case 2:
@@ -139,7 +147,7 @@ public class MyReceiver extends BroadcastReceiver {
                     EndCall();
                 else{
                     handleRing.changeRing(contact);
-                    Popup(incomingNumber); // 팝업
+                    if (latercallonoff==1)Popup(incomingNumber); // 팝업
                 }
                 break;
             case 3:
@@ -147,7 +155,7 @@ public class MyReceiver extends BroadcastReceiver {
                     EndCall();
                 else{
                     handleRing.changeRing(unknown);
-                    Popup(incomingNumber); // 팝업
+                    if (latercallonoff==1)Popup(incomingNumber); // 팝업
                 }
                 break;
         }
