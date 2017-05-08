@@ -1,6 +1,8 @@
 package com.example.sjeong.groupapplication;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -31,32 +33,6 @@ public class ModeActivity extends AppCompatActivity implements View.OnClickListe
             //dbManager.DeleteDB();
             dbManager.ReadDB();
         }
-
-        mode1 = (Button) this.findViewById(R.id.mode1);
-        mode1.setOnClickListener((View.OnClickListener) this);
-
-        mode2 = (Button) this.findViewById(R.id.mode2);
-        mode2.setOnClickListener((View.OnClickListener) this);
-
-        ArrayList<String> modes = dbManager.getModesName();
-        Log.i(Tag, "mod size" + modes.size());
-        if (modes.size() > 1) {
-            mode1.setText(modes.get(0).toString());
-            mode2.setText(modes.get(1).toString());
-        }
-        //arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, modes);
-        //listAdapter = new ListAdapter(this, R.layout.listveiw, modes);
-
-        //list = (ListView) findViewById(R.id.listView);
-
-        //list.setAdapter(listAdapter);
-        //list.setOnItemClickListener(ListViewItemClickListener);
-        Button makemode = (Button) this.findViewById(R.id.makemode);
-        makemode.setOnClickListener((View.OnClickListener) this);
-
-        Button option = (Button) this.findViewById(R.id.option);
-        option.setOnClickListener((View.OnClickListener) this);
-
     }
 
     @Override
@@ -64,7 +40,7 @@ public class ModeActivity extends AppCompatActivity implements View.OnClickListe
         super.onResume();
         Toast.makeText(this, "OnResume 호출", Toast.LENGTH_SHORT).show();
         ArrayList<String> modes = dbManager.getModesName();
-        listAdapter = new ListAdapter(this, R.layout.listview, modes);
+        listAdapter = new ListAdapter(this, R.layout.listview, modes, onClickListener);
         list = (ListView) findViewById(R.id.listView);
         list.setAdapter(listAdapter);
     }
@@ -74,15 +50,6 @@ public class ModeActivity extends AppCompatActivity implements View.OnClickListe
         Intent intent = new Intent(ModeActivity.this, ModeSetActivity.class);
 
         switch (v.getId()) {
-            case R.id.mode1:
-                intent.putExtra("Name", mode1.getText());
-                Log.i(Tag, "mod name" + mode1.getText());
-                startActivity(intent);
-                break;
-            case R.id.mode2:
-                intent.putExtra("Name", mode2.getText());
-                startActivity(intent);
-                break;
             case R.id.makemode:
                 startActivity(intent);
                 break;
@@ -104,19 +71,49 @@ public class ModeActivity extends AppCompatActivity implements View.OnClickListe
         }
     };
     */
-    View.OnClickListener mOnClickListener = new View.OnClickListener() {
+
+    View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            String modename = v.getTag().toString();
+
             switch (v.getId()) {
-
+                case R.id.itemmode:
+                    Log.i("test tag", modename);
+                    Intent intent = new Intent(ModeActivity.this, ModeSetActivity.class);
+                    intent.putExtra("Name",modename);
+                    startActivity(intent);
+                    break;
                 case R.id.select:
-                    //String seq = v.getTag(R.string.msg_tag_contents_seq).toString();
-                    //Log.e("Log", "seq="+seq);
-
+                    Log.i("test tag", modename);
+                    SetNowMode(modename);
+                    break;
+                case R.id.delete:
+                    Log.i("test tag", modename);
                     break;
 
             }
         }
     };
+
+    public void SetNowMode(String name){
+
+        Mode mode = new Mode();
+        mode = dbManager.getMode(name);
+
+        SharedPreferences preferences = getSharedPreferences("Mode", Activity.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("set", "on");
+        editor.putString("name", mode.getName());
+        editor.putInt("star", mode.getStar());
+        editor.putInt("contact", mode.getContact());
+        editor.putInt("unknown", mode.getUnknown());
+        editor.putInt("time", mode.getTime());
+        editor.putInt("count", mode.getCount());
+
+        editor.commit();
+
+        Log.i(Tag, "Set Now Mode");
+    }
 
 }
