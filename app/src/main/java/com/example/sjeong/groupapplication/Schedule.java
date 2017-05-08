@@ -67,9 +67,7 @@ public class Schedule {
         return sat;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+    public void setName(String name) {this.name = name;}
 
     public void setOrg_ring(String org_ring){
         this.org_ring = org_ring;
