@@ -1,22 +1,17 @@
 package com.example.sjeong.groupapplication;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CursorAdapter;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ModeActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -24,7 +19,9 @@ public class ModeActivity extends AppCompatActivity implements View.OnClickListe
     private DBManager dbManager;
     private Button mode1;
     private Button mode2;
-    ArrayAdapter<String> arrayAdapter;
+    //ArrayAdapter<String> arrayAdapter;
+    ListAdapter listAdapter;
+    private ListView list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,19 +46,29 @@ public class ModeActivity extends AppCompatActivity implements View.OnClickListe
             mode1.setText(modes.get(0).toString());
             mode2.setText(modes.get(1).toString());
         }
-        arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, modes);
+        //arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, modes);
+        //listAdapter = new ListAdapter(this, R.layout.listveiw, modes);
 
-        ListView list = (ListView) findViewById(R.id.listView);
+        //list = (ListView) findViewById(R.id.listView);
 
-
-        list.setAdapter(arrayAdapter);
-        list.setOnItemClickListener(ListViewItemClickListener);
+        //list.setAdapter(listAdapter);
+        //list.setOnItemClickListener(ListViewItemClickListener);
         Button makemode = (Button) this.findViewById(R.id.makemode);
         makemode.setOnClickListener((View.OnClickListener) this);
 
         Button option = (Button) this.findViewById(R.id.option);
         option.setOnClickListener((View.OnClickListener) this);
 
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+        Toast.makeText(this, "OnResume 호출", Toast.LENGTH_SHORT).show();
+        ArrayList<String> modes = dbManager.getModesName();
+        listAdapter = new ListAdapter(this, R.layout.listview, modes);
+        list = (ListView) findViewById(R.id.listView);
+        list.setAdapter(listAdapter);
     }
 
     @Override

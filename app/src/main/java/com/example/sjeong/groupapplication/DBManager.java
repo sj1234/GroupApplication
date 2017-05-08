@@ -5,15 +5,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.CursorAdapter;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by SJeong on 2017-05-04.
@@ -31,9 +25,11 @@ public class DBManager extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String table = "CREATE TABLE MODE"+ "(NAME TEXT PRIMARY KEY NOT NULL,"+"STAR INTEGER NOT NULL,"+"CONTACT INTEGER NOT NULL,"+"UNKNOWN INTEGER NOT NULL,"+" TIME INTEGER NOT NULL,"+" COUNT INTEGER NOT NULL)";
         db.execSQL(table);
+        /*
         table = "CREATE TABLE SCHEDULE(NAME TEXT PRIMARY KEY NOT NULL, ORG_RING TEXT, CHG_RING TEXT, START TEXT, END TEXT, " +
                 "BOOLEAN SUN, BOOLEAN MON, BOOLEAN TUE, BOOLEAN WED, BOOLEAN THU, BOOLEAN FRI, BOOLEAN SAT)";
         db.execSQL(table);
+        */
         Toast.makeText(dbcontext, "create db table", Toast.LENGTH_LONG).show();
         Log.i("test DB", "create db table");
     }
