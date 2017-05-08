@@ -59,22 +59,21 @@ public class ModeSetActivity extends AppCompatActivity implements View.OnClickLi
         contacttxt = (TextView) findViewById(R.id.contacttxt);
         unknowntxt = (TextView) findViewById(R.id.unknowntxt);
 
-        modename.setText("모드 이름");
-        startxt.setText("수신음을 선택해 주세요");
-        contacttxt.setText("수신음을 선택해 주세요");
-        unknowntxt.setText("수신음을 선택해 주세요");
-
         mode = new Mode();
 
         if(name != null) {
             mode=dbManager.getMode(name);
             modename.setText(name);
-            startxt.setText(Integer.toString(mode.getStar()));
+            startxt.setText( RingInformation(mode.getStar()));
+            contacttxt.setText( RingInformation(mode.getContact()));
+            unknowntxt.setText( RingInformation(mode.getUnknown()));
         }
         else {
             mode = new Mode();
-            //modename.setText("모드 이름");
-            //startxt.setText("수신음을 선택해 주세요");
+            modename.setText("모드 이름");
+            startxt.setText("수신음을 선택해 주세요");
+            contacttxt.setText("수신음을 선택해 주세요");
+            unknowntxt.setText("수신음을 선택해 주세요");
         }
     }
 
@@ -207,6 +206,20 @@ public class ModeSetActivity extends AppCompatActivity implements View.OnClickLi
             default:
                 break;
         }
+    }
+
+    public String RingInformation(int i){
+        switch(i){
+            case 1:
+                return "벨소리";
+            case 2:
+                return "진동";
+            case 3:
+                return "무음";
+            case 4:
+                return "차단";
+        }
+        return null;
     }
 
 }
