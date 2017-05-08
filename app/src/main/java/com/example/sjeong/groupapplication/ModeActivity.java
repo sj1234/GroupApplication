@@ -1,6 +1,7 @@
 package com.example.sjeong.groupapplication;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -17,13 +18,16 @@ public class ModeActivity extends AppCompatActivity implements View.OnClickListe
 
     private String Tag = "test ModeActive";
     private DBManager dbManager;
-    ListAdapter listAdapter;
+    private Context context;
+    private ListAdapter listAdapter;
     private ListView list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mode);
+        context = this;
+
         // DB생성
         if (dbManager == null) {
             dbManager = new DBManager(ModeActivity.this, "AlarmCall", null, 1);
@@ -34,8 +38,11 @@ public class ModeActivity extends AppCompatActivity implements View.OnClickListe
         Button makemode = (Button)findViewById(R.id.makemode);
         makemode.setOnClickListener((View.OnClickListener) this);
 
-        Button option = (Button)findViewById(R.id.option);
-        option.setOnClickListener((View.OnClickListener) this);
+        Button nomode = (Button)findViewById(R.id.nomode);
+        nomode.setOnClickListener((View.OnClickListener) this);
+
+        Button back = (Button)findViewById(R.id.back);
+        back.setOnClickListener((View.OnClickListener) this);
 
     }
 
@@ -57,7 +64,13 @@ public class ModeActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.makemode:
                 startActivity(intent);
                 break;
-            case R.id.option:
+            case R.id.nomode:
+                SharedPreferences preferences =context.getSharedPreferences("Mode", Activity.MODE_PRIVATE);
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putString("set", "off");
+                editor.commit();
+                break;
+            case R.id.back:
                 intent = new Intent(this, OptionActivity.class);
                 startActivity(intent);
                 finish();

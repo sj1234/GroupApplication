@@ -86,8 +86,6 @@ public class ModeSetActivity extends AppCompatActivity implements View.OnClickLi
                                        int position, long id) {
                 timetxt.setText("TIME : "+parent.getItemAtPosition(position));
                 mode.setTime(Integer.parseInt(""+parent.getItemAtPosition(position)));
-
-                Toast.makeText(context, mode.getTime()+" : "+parent.getItemAtPosition(position), Toast.LENGTH_SHORT).show();
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {}
