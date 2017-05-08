@@ -17,9 +17,6 @@ public class ModeActivity extends AppCompatActivity implements View.OnClickListe
 
     private String Tag = "test ModeActive";
     private DBManager dbManager;
-    private Button mode1;
-    private Button mode2;
-    //ArrayAdapter<String> arrayAdapter;
     ListAdapter listAdapter;
     private ListView list;
 
@@ -33,6 +30,13 @@ public class ModeActivity extends AppCompatActivity implements View.OnClickListe
             //dbManager.DeleteDB();
             dbManager.ReadDB();
         }
+
+        Button makemode = (Button)findViewById(R.id.makemode);
+        makemode.setOnClickListener((View.OnClickListener) this);
+
+        Button option = (Button)findViewById(R.id.option);
+        option.setOnClickListener((View.OnClickListener) this);
+
     }
 
     @Override
@@ -47,15 +51,16 @@ public class ModeActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        Intent intent = new Intent(ModeActivity.this, ModeSetActivity.class);
+        Intent intent = new Intent(this, ModeSetActivity.class);
 
         switch (v.getId()) {
             case R.id.makemode:
                 startActivity(intent);
                 break;
             case R.id.option:
-                intent = new Intent(ModeActivity.this, OptionActivity.class);
+                intent = new Intent(this, OptionActivity.class);
                 startActivity(intent);
+                finish();
                 break;
             default:
                 break;

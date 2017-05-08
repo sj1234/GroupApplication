@@ -193,6 +193,7 @@ public class MyReceiver extends BroadcastReceiver {
             Log.i(Tag, "unknow Number");
             return 3;
         } else
+
             return 3; // 주소록에 번호가 없는 경우
 
     }
