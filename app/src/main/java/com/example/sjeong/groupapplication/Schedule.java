@@ -18,6 +18,7 @@ public class Schedule {
     private Boolean thu;
     private Boolean fri;
     private Boolean sat;
+    private String modename;
 
     public String getName() {
         return name;
@@ -67,6 +68,8 @@ public class Schedule {
         return sat;
     }
 
+    public String getModename() { return modename;}
+
     public void setName(String name) {this.name = name;}
 
     public void setOrg_ring(String org_ring){
@@ -112,4 +115,6 @@ public class Schedule {
     public void setSat(Boolean sat){
         this.sat = sat;
     }
+
+    public void setModename(String modename) { this.modename = modename; }
 }

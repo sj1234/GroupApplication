@@ -26,9 +26,9 @@ public class DBManager extends SQLiteOpenHelper {
         String table = "CREATE TABLE MODE"+ "(NAME TEXT PRIMARY KEY NOT NULL,"+"STAR INTEGER NOT NULL,"+"CONTACT INTEGER NOT NULL,"+"UNKNOWN INTEGER NOT NULL,"+" TIME INTEGER NOT NULL,"+" COUNT INTEGER NOT NULL);";
         db.execSQL(table);
 
-        //String table2 = "CREATE TABLE SCHEDULE(NAME TEXT PRIMARY KEY NOT NULL, ORG_RING TEXT, CHG_RING TEXT, START TEXT, END TEXT, " +
-        //        "BOOLEAN SUN, BOOLEAN MON, BOOLEAN TUE, BOOLEAN WED, BOOLEAN THU, BOOLEAN FRI, BOOLEAN SAT);";
-        //db.execSQL(table2);
+        String table2 = "CREATE TABLE SCHEDULE(NAME TEXT PRIMARY KEY NOT NULL, ORG_RING TEXT, CHG_RING TEXT, START TEXT, END TEXT, " +
+                "BOOLEAN SUN, BOOLEAN MON, BOOLEAN TUE, BOOLEAN WED, BOOLEAN THU, BOOLEAN FRI, BOOLEAN SAT, MODENAME TEXT);";
+        db.execSQL(table2);
 
         Toast.makeText(dbcontext, "create db table", Toast.LENGTH_LONG).show();
         Log.i("test DB", "create db table");
@@ -52,11 +52,17 @@ public class DBManager extends SQLiteOpenHelper {
 
     public void insertMode(Mode mode){
         SQLiteDatabase db = getWritableDatabase();
-        String insertdb = "INSERT INTO MODE("+"NAME, STAR, CONTACT, UNKNOWN, TIME, COUNT)"+"VALUES(?, ?, ?, ?, ?, ?);";
+        String insertdb = "INSERT INTO MODE("+"NAME, STAR, CONTACT, UNKNOWN, TIME, COUNT)"+" VALUES(?, ?, ?, ?, ?, ?);";
         db.execSQL(insertdb, new Object[]{mode.getName(), mode.getStar(), mode.getContact(), mode.getUnknown(), mode.getTime(), mode.getCount()});
 
         Toast.makeText(dbcontext, "insert", Toast.LENGTH_LONG).show();
         Log.i("test DB", "insert : " + mode.getName()+", "+mode.getStar()+", "+ mode.getContact()+", "+ mode.getUnknown()+", "+ mode.getTime()+", "+ mode.getCount());
+    }
+
+    public void insertSchedule(Schedule schedule){
+        SQLiteDatabase db = getWritableDatabase();
+        String insertdb = "INSERT INTO SCHEDULE(NAME, ORG_RING, CHG_RING, START, END, SUN, MON, TUE, WED, THU, FRI, SAT, MODENAME) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+        db.execSQL(insertdb, new Object[]{schedule.getName().toString(), schedule.getOrg_ring().toString(), schedule.getChg_ring().toString(), schedule.getStart(), schedule.getEnd(), schedule.getSun().booleanValue(), schedule.getMon().booleanValue(), schedule.getTue().booleanValue(), schedule.getWed().booleanValue(), schedule.getThu().booleanValue(), schedule.getFri().booleanValue(), schedule.getSat().booleanValue(), schedule.getModename().toString()});
     }
 
     public void updateMode(String originalname, Mode mode){
@@ -70,8 +76,8 @@ public class DBManager extends SQLiteOpenHelper {
 
     public void updateSchedule(String originalname, Schedule schedule){
         SQLiteDatabase db = getWritableDatabase();
-        String updatedb = "UPDATE SCHEDULE SET NAME = ?, ORG_RING =?, CHG_RING =?, START =?, END =?, SUN =?, MON =?, TUE =?, WED =?, THU =?, FRI =?, SAT =? WHERE NAME =?;";
-        db.execSQL(updatedb, new Object[]{schedule.getName().toString(), schedule.getOrg_ring().toString(), schedule.getChg_ring().toString(), schedule.getStart(), schedule.getEnd(), schedule.getSun().booleanValue(), schedule.getMon().booleanValue(), schedule.getTue().booleanValue(), schedule.getWed().booleanValue(), schedule.getThu().booleanValue(), schedule.getFri().booleanValue(), schedule.getSat().booleanValue(), originalname});
+        String updatedb = "UPDATE SCHEDULE SET NAME = ?, ORG_RING =?, CHG_RING =?, START =?, END =?, SUN =?, MON =?, TUE =?, WED =?, THU =?, FRI =?, SAT =?, MODENAME =? WHERE NAME =?;";
+        db.execSQL(updatedb, new Object[]{schedule.getName().toString(), schedule.getOrg_ring().toString(), schedule.getChg_ring().toString(), schedule.getStart(), schedule.getEnd(), schedule.getSun().booleanValue(), schedule.getMon().booleanValue(), schedule.getTue().booleanValue(), schedule.getWed().booleanValue(), schedule.getThu().booleanValue(), schedule.getFri().booleanValue(), schedule.getSat().booleanValue(), schedule.getModename().toString(), originalname});
     }
 
     public void deleteMode(String modename, Mode mode){
