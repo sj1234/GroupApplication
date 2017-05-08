@@ -1,6 +1,8 @@
 package com.example.sjeong.groupapplication;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -19,9 +21,6 @@ int a ,z=0;
         bttn_option = (Button) findViewById(R.id.bttn_option);
 
         bttn_option.setOnClickListener(new View.OnClickListener() {
-
-
-
             public void onClick(View v) {
 
                 Intent intent1 = new Intent(MainActivity.this, OptionActivity.class);
@@ -29,11 +28,13 @@ int a ,z=0;
                 startActivity(intent1);
                 overridePendingTransition(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right);
                 finish();
-
-
             }
 
         });
+
+        // Preferences 생성
+        SharedPreferences pref = getSharedPreferences("Mode", Activity.MODE_PRIVATE);
+        // 현재 상태 띄우기
 
 
     }

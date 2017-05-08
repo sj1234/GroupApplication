@@ -1,7 +1,9 @@
 package com.example.sjeong.groupapplication;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +24,7 @@ public class ListAdapter extends BaseAdapter {
     private int layout;
     private ArrayList<String> arraylist;
     private String name;
+    private SharedPreferences pref;
 
     public ListAdapter(Context context, int layout, ArrayList<String> arraylist){
             this.context = context;
@@ -69,6 +72,9 @@ public class ListAdapter extends BaseAdapter {
                 context.startActivity(intent);
             }
         });
+
+        pref = context.getSharedPreferences("Mode", Activity.MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
         button.setOnClickListener(new Button.OnClickListener(){
             public void onClick(View v){
                 Log.i("test listbutton", "listbutton");

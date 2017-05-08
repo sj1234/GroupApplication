@@ -37,9 +37,7 @@ public class OptionActivity extends AppCompatActivity implements OnClickListener
                 startActivity(intent1);
                 overridePendingTransition(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right);
                 finish();
-
                 break;
-
 
             case R.id.bttn_mode:
 

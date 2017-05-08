@@ -5,10 +5,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -97,6 +95,7 @@ public class ModeActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    /*
     AdapterView.OnItemClickListener ListViewItemClickListener = new AdapterView.OnItemClickListener() {
         public void onItemClick(AdapterView<?> parentView, View clickedView, int position, long id) {
             Intent intent = new Intent(ModeActivity.this, ModeSetActivity.class);
@@ -104,4 +103,20 @@ public class ModeActivity extends AppCompatActivity implements View.OnClickListe
             startActivity(intent);
         }
     };
+    */
+    View.OnClickListener mOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()) {
+
+                case R.id.select:
+                    //String seq = v.getTag(R.string.msg_tag_contents_seq).toString();
+                    //Log.e("Log", "seq="+seq);
+
+                    break;
+
+            }
+        }
+    };
+
 }
