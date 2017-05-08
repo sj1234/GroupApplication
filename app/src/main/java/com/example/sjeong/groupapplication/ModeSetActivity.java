@@ -71,6 +71,8 @@ public class ModeSetActivity extends AppCompatActivity implements View.OnClickLi
             startxt.setText( RingInformation(mode.getStar()));
             contacttxt.setText( RingInformation(mode.getContact()));
             unknowntxt.setText( RingInformation(mode.getUnknown()));
+            timetxt.setText(Integer.toString(mode.getTime()));
+            counttxt.setText(Integer.toString(mode.getCount()));
         }
         else {
             mode = new Mode();
@@ -80,6 +82,8 @@ public class ModeSetActivity extends AppCompatActivity implements View.OnClickLi
             unknowntxt.setText("수신음을 선택해 주세요");
         }
         Spinner s1 = (Spinner)findViewById(R.id.timespinner);
+        if(name!=null)
+            s1.setSelection(mode.getTime());
         s1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view,
@@ -91,6 +95,8 @@ public class ModeSetActivity extends AppCompatActivity implements View.OnClickLi
             public void onNothingSelected(AdapterView<?> parent) {}
         });
         Spinner s2 = (Spinner)findViewById(R.id.countspinner);
+        if(name!=null)
+            s2.setSelection(mode.getCount());
         s2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view,
@@ -205,8 +211,6 @@ public class ModeSetActivity extends AppCompatActivity implements View.OnClickLi
                 break;
             case R.id.set:
                 if(name==null) {
-                    mode.setTime(5);
-                    mode.setCount(3);
                     mode.setName(modename.getText().toString());
                     dbManager.insertMode(mode);
                 }
