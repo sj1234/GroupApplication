@@ -16,7 +16,6 @@
     // 전화수신확인
     <uses-permission android:name="android.permission.VIBRATE" />
     // 진동 권한
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -41,8 +40,7 @@
         </receiver>
 
         <activity android:name=".ModeActivity" />
-        <activity android:name=".ModeSetActivity"></activity>
-
+        <activity android:name=".ModeSetActivity" />
         <activity
             android:name=".PopupActivity"
             android:screenOrientation="sensorPortrait"
@@ -54,6 +52,16 @@
             android:enabled="true"
             android:exported="true" />
 
+        <receiver android:name=".AppWidget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="com.example.sjeong.groupapplication.CLICK" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/app_widget_info" />
+        </receiver>
 
     </application>
 
