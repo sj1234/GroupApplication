@@ -23,12 +23,12 @@ public class DBManager extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String table = "CREATE TABLE MODE"+ "(NAME TEXT PRIMARY KEY NOT NULL,"+"STAR INTEGER NOT NULL,"+"CONTACT INTEGER NOT NULL,"+"UNKNOWN INTEGER NOT NULL,"+" TIME INTEGER NOT NULL,"+" COUNT INTEGER NOT NULL)";
+        String table = "CREATE TABLE MODE"+ "(NAME TEXT PRIMARY KEY NOT NULL,"+"STAR INTEGER NOT NULL,"+"CONTACT INTEGER NOT NULL,"+"UNKNOWN INTEGER NOT NULL,"+" TIME INTEGER NOT NULL,"+" COUNT INTEGER NOT NULL);";
         db.execSQL(table);
 
-        String table2 = "CREATE TABLE SCHEDULE(NAME TEXT PRIMARY KEY NOT NULL, ORG_RING TEXT, CHG_RING TEXT, START TEXT, END TEXT, " +
-                "BOOLEAN SUN, BOOLEAN MON, BOOLEAN TUE, BOOLEAN WED, BOOLEAN THU, BOOLEAN FRI, BOOLEAN SAT)";
-        db.execSQL(table2);
+        //String table2 = "CREATE TABLE SCHEDULE(NAME TEXT PRIMARY KEY NOT NULL, ORG_RING TEXT, CHG_RING TEXT, START TEXT, END TEXT, " +
+        //        "BOOLEAN SUN, BOOLEAN MON, BOOLEAN TUE, BOOLEAN WED, BOOLEAN THU, BOOLEAN FRI, BOOLEAN SAT);";
+        //db.execSQL(table2);
 
         Toast.makeText(dbcontext, "create db table", Toast.LENGTH_LONG).show();
         Log.i("test DB", "create db table");
@@ -43,16 +43,16 @@ public class DBManager extends SQLiteOpenHelper {
 
     public void DeleteDB() {  // DB 리셋용
         SQLiteDatabase db = getWritableDatabase();
-        String insertdb = "DELETE FROM MODE";
+        String insertdb = "DELETE FROM MODE;";
         db.execSQL(insertdb);
-        insertdb = "DELETE FROM SCHEDULE";
+        insertdb = "DELETE FROM SCHEDULE;";
         db.execSQL(insertdb);
         }
 
 
     public void insertMode(Mode mode){
         SQLiteDatabase db = getWritableDatabase();
-        String insertdb = "INSERT INTO MODE("+"NAME, STAR, CONTACT, UNKNOWN, TIME, COUNT)"+"VALUES(?, ?, ?, ?, ?, ?)";
+        String insertdb = "INSERT INTO MODE("+"NAME, STAR, CONTACT, UNKNOWN, TIME, COUNT)"+"VALUES(?, ?, ?, ?, ?, ?);";
         db.execSQL(insertdb, new Object[]{mode.getName(), mode.getStar(), mode.getContact(), mode.getUnknown(), mode.getTime(), mode.getCount()});
 
         Toast.makeText(dbcontext, "insert", Toast.LENGTH_LONG).show();
@@ -68,8 +68,26 @@ public class DBManager extends SQLiteOpenHelper {
         Log.i("test DB", "update : " + mode.getName()+", "+mode.getStar()+", "+ mode.getContact()+", "+ mode.getUnknown()+", "+ mode.getTime()+", "+ mode.getCount());
     }
 
+    public void updateSchedule(String origninalname, Schedule schedule){
+        SQLiteDatabase db = getWritableDatabase();
+        String updatedb = "UPDATE SCHEDULE SET NAME = ?, ORG_RING =?, CHG_RING =?, START =?, END =?, SUN =?, MON =?, TUE =?, WED =?, THU =?, FRI =?, SAT =? WHERE NAME =?;";
+        db.execSQL(updatedb, new Object[]{schedule.getName().toString(), schedule.getOrg_ring().toString(), schedule.getChg_ring().toString(), schedule.getStart(), schedule.getEnd(), schedule.getSun().booleanValue(), schedule.getMon().booleanValue(), schedule.getTue().booleanValue(), schedule.getWed().booleanValue(), schedule.getThu().booleanValue(), schedule.getFri().booleanValue(), schedule.getSat().booleanValue(), origninalname});
+    }
+
+    public void deleteMode(String modename, Mode mode){
+        SQLiteDatabase db  = getWritableDatabase();
+        String deletetable = "DELETE FROM MODE WHERE NAME = ?;";
+        db.execSQL(deletetable, new Object[]{mode.getName().toString(), modename});
+    }
+
+    public void deleteSchedule(String schedulename, Schedule schedule){
+        SQLiteDatabase db = getWritableDatabase();
+        String deletetable = "DELETE FROM SCHEDULE WHERE SCHEDULE = ?;";
+        db.execSQL(deletetable, new Object[]{schedule.getName().toString(), schedulename});
+    }
+
     public ArrayList<String> getModesName(){
-        String string = "SELECT NAME FROM MODE";
+        String string = "SELECT NAME FROM MODE;";
         SQLiteDatabase db = getReadableDatabase();
 
         ArrayList<String> modes = new ArrayList<String>();
@@ -106,7 +124,7 @@ public class DBManager extends SQLiteOpenHelper {
     public Mode getMode(String modename) {
 
         Log.i("test DBManager", "get mode1");
-        String string = "SELECT NAME, STAR, CONTACT, UNKNOWN, TIME, COUNT FROM MODE";
+        String string = "SELECT NAME, STAR, CONTACT, UNKNOWN, TIME, COUNT FROM MODE;";
         SQLiteDatabase db = getReadableDatabase();
 
         Log.i("test DBManager", "get mode2" + string );

@@ -9,8 +9,8 @@ public class Schedule {
     private String name;
     private String org_ring;
     private String chg_ring;
-    private String start;
-    private String end;
+    private int start;
+    private int end;
     private Boolean sun;
     private Boolean mon;
     private Boolean tue;
@@ -27,15 +27,15 @@ public class Schedule {
         return org_ring;
     }
 
-    public String getChg_ring_ring() {
+    public String getChg_ring() {
         return chg_ring;
     }
 
-    public String getStart() {
+    public int getStart() {
         return start;
     }
 
-    public String getEnd() {
+    public int getEnd() {
         return end;
     }
 
@@ -77,11 +77,11 @@ public class Schedule {
         this.chg_ring = chg_ring;
     }
 
-    public void setStart(String start){
+    public void setStart(int start){
         this.start = start;
     }
 
-    public void setEnd(String end){
+    public void setEnd(int end){
         this.end = end;
     }
 
