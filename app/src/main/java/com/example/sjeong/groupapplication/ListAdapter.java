@@ -1,9 +1,6 @@
 package com.example.sjeong.groupapplication;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,12 +21,13 @@ public class ListAdapter extends BaseAdapter {
     private int layout;
     private ArrayList<String> arraylist;
     private String name;
-    private SharedPreferences pref;
+    private View.OnClickListener onClickListener;
 
-    public ListAdapter(Context context, int layout, ArrayList<String> arraylist){
+    public ListAdapter(Context context, int layout, ArrayList<String> arraylist, View.OnClickListener onClickListener){
             this.context = context;
             this.layout = layout;
             this.arraylist = arraylist;
+            this.onClickListener = onClickListener;
         }
 
     //리스트 객체 내의 item의 갯수를 반환해주는 함수. 리스트 객체의 size를 반환해주면된다
@@ -53,34 +51,30 @@ public class ListAdapter extends BaseAdapter {
     // ListView의 항목들을 출력하는 함수 position : 해당되는 항목의 Adapter에서의 위치값  convertView : 재사용할 항목의 View   parent : 항목의 View들을 포함하고 있는 ListView
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.listview, parent, false);
         }
+
         TextView textView = (TextView) convertView.findViewById(R.id.itemmode);
-        Button button = (Button)convertView.findViewById(R.id.select) ;
+        Button buttonselect = (Button)convertView.findViewById(R.id.select) ;
+        Button buttondelete = (Button)convertView.findViewById(R.id.delete) ;
 
         name = arraylist.get(position).toString();
 
         Log.i("test listbutton", arraylist.get(position).toString());
         textView.setText(arraylist.get(position).toString());
-        textView.setOnClickListener(new TextView.OnClickListener(){
-            public void onClick(View v){
-                Log.i("test listbutton", "listtext");
-                Intent intent = new Intent(context, ModeSetActivity.class);
-                intent.putExtra("Name",name);
-                context.startActivity(intent);
-            }
-        });
+        if(onClickListener != null) {
+            textView.setTag(arraylist.get(position).toString());
+            textView.setOnClickListener(onClickListener);
 
-        pref = context.getSharedPreferences("Mode", Activity.MODE_PRIVATE);
-        SharedPreferences.Editor editor = pref.edit();
-        button.setOnClickListener(new Button.OnClickListener(){
-            public void onClick(View v){
-                Log.i("test listbutton", "listbutton");
-                //현재모드
-            }
-        });
+            buttonselect.setTag(arraylist.get(position).toString());
+            buttonselect.setOnClickListener(onClickListener);
+
+            buttondelete.setTag(arraylist.get(position).toString());
+            buttondelete.setOnClickListener(onClickListener);
+        }
 
         return convertView;
 

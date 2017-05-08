@@ -1,11 +1,14 @@
 package com.example.sjeong.groupapplication;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -73,6 +76,9 @@ public class ModeSetActivity extends AppCompatActivity implements View.OnClickLi
 
     @Override
     public void onClick(View v) {
+
+        SharedPreferences preferences =context.getSharedPreferences("Mode", Activity.MODE_PRIVATE);
+
         switch (v.getId()) {
             case R.id.star:
                 final CharSequence[] items1 = {"벨소리", "진동", "무음", "차단"};
@@ -170,6 +176,23 @@ public class ModeSetActivity extends AppCompatActivity implements View.OnClickLi
                     mode.setCount(3);
                     mode.setName(modename.getText().toString());
                     dbManager.insertMode(mode);
+                }
+                else if(name.equals(preferences.getString("name", "null")))
+                {
+                    mode.setName(modename.getText().toString());
+                    dbManager.updateMode(name, mode);
+
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putString("set", "on");
+                    editor.putString("name", mode.getName());
+                    editor.putInt("star", mode.getStar());
+                    editor.putInt("contact", mode.getContact());
+                    editor.putInt("unknown", mode.getUnknown());
+                    editor.putInt("time", mode.getTime());
+                    editor.putInt("count", mode.getCount());
+                    editor.commit();
+
+                    Log.i(Tag, "Update Now Mode");
                 }
                 else {
                     mode.setName(modename.getText().toString());
