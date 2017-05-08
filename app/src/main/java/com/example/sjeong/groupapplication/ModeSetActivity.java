@@ -24,7 +24,7 @@ public class ModeSetActivity extends AppCompatActivity implements View.OnClickLi
     private Mode mode;
     private String name;
 
-    private TextView startxt;
+    private TextView startxt,contacttxt,unknowntxt;
     private EditText modename;
 
     @Override
@@ -56,9 +56,13 @@ public class ModeSetActivity extends AppCompatActivity implements View.OnClickLi
 
         modename = (EditText) findViewById(R.id.modename);
         startxt = (TextView) findViewById(R.id.startxt);
+        contacttxt = (TextView) findViewById(R.id.contacttxt);
+        unknowntxt = (TextView) findViewById(R.id.unknowntxt);
 
         modename.setText("모드 이름");
         startxt.setText("수신음을 선택해 주세요");
+        contacttxt.setText("수신음을 선택해 주세요");
+        unknowntxt.setText("수신음을 선택해 주세요");
 
         mode = new Mode();
 
@@ -120,7 +124,7 @@ public class ModeSetActivity extends AppCompatActivity implements View.OnClickLi
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
 
-                                startxt.setText(items2[id]);
+                                contacttxt.setText(items2[id]);
                                 if(items2[id].equals("벨소리"))
                                     mode.setContact(1);
                                 else if(items2[id].equals("진동"))
@@ -150,7 +154,7 @@ public class ModeSetActivity extends AppCompatActivity implements View.OnClickLi
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
 
-                                startxt.setText(items3[id]);
+                                unknowntxt.setText(items3[id]);
                                 if(items3[id].equals("벨소리"))
                                     mode.setUnknown(1);
                                 else if(items3[id].equals("진동"))
