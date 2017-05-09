@@ -3,18 +3,20 @@ package com.example.sjeong.groupapplication;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.ImageButton;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
-    private Button home;
-    private Button mode;
-    private Button schedule;
-    private Button setting;
+    private ImageButton home;
+    private ImageButton mode;
+    private ImageButton schedule;
+    private ImageButton setting;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,10 +31,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         NowMode(nowname, nowstar,nowcontact,nowunknown,nowtimecount);
 
 
-        home = (Button) findViewById(R.id.home);
-        mode = (Button) findViewById(R.id.mode);
-        schedule= (Button) findViewById(R.id.schedule);
-        setting = (Button) findViewById(R.id.setting);
+        home = (ImageButton) findViewById(R.id.home);
+        mode = (ImageButton) findViewById(R.id.mode);
+        schedule= (ImageButton) findViewById(R.id.schedule);
+        setting = (ImageButton) findViewById(R.id.setting);
 
         home.setOnClickListener(this);
         mode.setOnClickListener(this);

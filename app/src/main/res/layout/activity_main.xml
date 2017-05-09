@@ -49,37 +49,47 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="10"
-        android:layout_marginBottom="8dp">
+        android:layout_marginBottom="8dp"
+        android:layout_weight="10">
 
 
-        <Button
+        <ImageButton
             android:id="@+id/home"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="HOME"
-            android:layout_weight="1"/>
+            android:padding="0dp"
+            android:background="@drawable/home_on"
+            android:text="HOME" />
 
-        <Button
+        <ImageButton
             android:id="@+id/mode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="0dp"
+            android:background="@drawable/to_mode"
             android:text="MODE"
-            android:layout_weight="1"/>
+            />
 
-        <Button
+
+        <ImageButton
             android:id="@+id/schedule"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="0dp"
+            android:background="@drawable/to_schedule"
             android:text="SCHEDULE"
-            android:layout_weight="1"/>
+            />
 
-        <Button
+        <ImageButton
             android:id="@+id/setting"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="SETTING"
-            android:layout_weight="1"/>
+            android:padding="0dp"
+            android:background="@drawable/to_setting"/>
     </LinearLayout>
 
 </LinearLayout>

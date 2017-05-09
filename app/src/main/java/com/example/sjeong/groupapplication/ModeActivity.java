@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
+import android.widget.ImageButton;
 
 import java.util.ArrayList;
 
@@ -37,10 +39,10 @@ public class ModeActivity extends AppCompatActivity implements View.OnClickListe
 
         Button makemode = (Button)findViewById(R.id.makemode);
         Button nomode = (Button)findViewById(R.id.nomode);
-        Button home = (Button) findViewById(R.id.home_mode);
-        Button mode = (Button) findViewById(R.id.mode_mode);
-        Button schedule= (Button) findViewById(R.id.schedule_mode);
-        Button setting = (Button) findViewById(R.id.setting_mode);
+        ImageButton home = (ImageButton) findViewById(R.id.home_mode);
+        ImageButton mode = (ImageButton) findViewById(R.id.mode_mode);
+        ImageButton schedule= (ImageButton) findViewById(R.id.schedule_mode);
+        ImageButton setting = (ImageButton) findViewById(R.id.setting_mode);
 
         makemode.setOnClickListener((View.OnClickListener) this);
         nomode.setOnClickListener((View.OnClickListener) this);
