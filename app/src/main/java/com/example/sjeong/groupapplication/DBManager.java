@@ -110,24 +110,6 @@ public class DBManager extends SQLiteOpenHelper {
         return modes;
     }
 
-    public ArrayList<String> getArray(){   // 아직 완성안됨
-        String string = "SELECT STAR, CONTACT, UNKNOWN FROM MODE WHERE NAME= ?;";
-        String getExtra[] = null;
-        SQLiteDatabase db = getReadableDatabase();
-        ArrayList<String> modes = new ArrayList<String>();
-        Cursor cursor = db.rawQuery(string, getExtra); // getExtra 에 putExtra값 받아옴
-        if(cursor.moveToFirst()) {
-            do {
-                modes.add(cursor.getString(0));
-                modes.add(cursor.getString(1));
-                modes.add(cursor.getString(2));
-                Log.i("test DBManager", cursor.getString(0));
-            }
-            while (cursor.moveToNext());
-        }
-        return modes;
-    }
-
     public Mode getMode(String modename) {
 
         Log.i("test DBManager", "get mode1");

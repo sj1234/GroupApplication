@@ -22,6 +22,7 @@ public class ModeActivity extends AppCompatActivity implements View.OnClickListe
     private ListAdapter listAdapter;
     private ListView list;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,13 +37,18 @@ public class ModeActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         Button makemode = (Button)findViewById(R.id.makemode);
-        makemode.setOnClickListener((View.OnClickListener) this);
-
         Button nomode = (Button)findViewById(R.id.nomode);
-        nomode.setOnClickListener((View.OnClickListener) this);
+        Button home = (Button) findViewById(R.id.home_mode);
+        Button mode = (Button) findViewById(R.id.mode_mode);
+        Button schedule= (Button) findViewById(R.id.schedule_mode);
+        Button setting = (Button) findViewById(R.id.setting_mode);
 
-        Button back = (Button)findViewById(R.id.back);
-        back.setOnClickListener((View.OnClickListener) this);
+        makemode.setOnClickListener((View.OnClickListener) this);
+        nomode.setOnClickListener((View.OnClickListener) this);
+        home.setOnClickListener(this);
+        mode.setOnClickListener(this);
+        schedule.setOnClickListener(this);
+        setting.setOnClickListener(this);
 
     }
 
@@ -58,10 +64,11 @@ public class ModeActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        Intent intent = new Intent(this, ModeSetActivity.class);
+        Intent intent = null;
 
         switch (v.getId()) {
             case R.id.makemode:
+                intent = new Intent(this, ModeSetActivity.class);
                 startActivity(intent);
                 break;
             case R.id.nomode:
@@ -70,7 +77,19 @@ public class ModeActivity extends AppCompatActivity implements View.OnClickListe
                 editor.putString("set", "off");
                 editor.commit();
                 break;
-            case R.id.back:
+            case R.id.home_mode:
+                intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
+                finish();
+                break;
+            case R.id.mode_mode:
+                break;
+            case R.id.schedule_mode:
+                intent = new Intent(this, ScheduleActivity.class);
+                startActivity(intent);
+                finish();
+                break;
+            case R.id.setting_mode:
                 intent = new Intent(this, OptionActivity.class);
                 startActivity(intent);
                 finish();
