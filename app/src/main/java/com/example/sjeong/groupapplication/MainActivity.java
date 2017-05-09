@@ -12,7 +12,7 @@ import android.widget.TextView;
 import android.widget.ImageButton;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
-
+    int z = 0;
     private ImageButton home;
     private ImageButton mode;
     private ImageButton schedule;
