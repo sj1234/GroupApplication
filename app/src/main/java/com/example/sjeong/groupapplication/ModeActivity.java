@@ -1,6 +1,7 @@
 package com.example.sjeong.groupapplication;
 
 import android.app.Activity;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -76,6 +77,17 @@ public class ModeActivity extends AppCompatActivity implements View.OnClickListe
                 SharedPreferences.Editor editor = preferences.edit();
                 editor.putString("set", "off");
                 editor.commit();
+
+                // 위젯 변경
+                Intent wintent = new Intent(context, AppWidget.class);
+                wintent.setAction("com.example.sjeong.groupapplication.CHANGE");
+                PendingIntent pendindintent = PendingIntent.getBroadcast(context, 0, wintent, 0);
+                try {
+                    pendindintent.send();
+                } catch (PendingIntent.CanceledException e) {
+                    e.printStackTrace();
+                }
+
                 break;
             case R.id.home_mode:
                 intent = new Intent(this, MainActivity.class);
@@ -114,11 +126,28 @@ public class ModeActivity extends AppCompatActivity implements View.OnClickListe
                 case R.id.select:
                     Log.i("test tag", modename);
                     SetNowMode(modename);
+
+                    // 위젯 변경
+                    Intent wintent = new Intent(context, AppWidget.class);
+                    wintent.setAction("com.example.sjeong.groupapplication.CHANGE");
+                    PendingIntent pendindintent = PendingIntent.getBroadcast(context, 0, wintent, 0);
+                    try {
+                        pendindintent.send();
+                    } catch (PendingIntent.CanceledException e) {
+                        e.printStackTrace();
+                    }
+
                     break;
                 case R.id.delete:
                     Log.i("test tag", modename);
-                    dbManager.deleteMode(modename);
-                    onResume();
+                    SharedPreferences preferences= context.getSharedPreferences("Mode", Activity.MODE_PRIVATE);
+                    if(preferences.getString("name", "null").equals(modename))
+                        Toast.makeText(context, "현재 모드라 삭제 불가능 합니다.", Toast.LENGTH_SHORT).show();
+                    else{
+                        dbManager.deleteMode(modename);
+                        Toast.makeText(context, "삭제 완료", Toast.LENGTH_SHORT).show();
+                        onResume();
+                    }
                     break;
 
             }

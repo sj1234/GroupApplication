@@ -3,13 +3,11 @@ package com.example.sjeong.groupapplication;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.media.Image;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
     int z = 0;
@@ -23,14 +21,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        TextView nowname = (TextView)findViewById(R.id.nowname);
-        TextView nowstar = (TextView)findViewById(R.id.nowstar);
-        TextView nowcontact = (TextView)findViewById(R.id.nowcontact);
-        TextView nowunknown = (TextView)findViewById(R.id.nowunknown);
-        TextView nowtimecount = (TextView)findViewById(R.id.nowtimecount);
-        NowMode(nowname, nowstar,nowcontact,nowunknown,nowtimecount);
-
-
         home = (ImageButton) findViewById(R.id.home);
         mode = (ImageButton) findViewById(R.id.mode);
         schedule= (ImageButton) findViewById(R.id.schedule);
@@ -40,6 +30,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mode.setOnClickListener(this);
         schedule.setOnClickListener(this);
         setting.setOnClickListener(this);
+    }
+
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+        TextView nowname = (TextView)findViewById(R.id.nowname);
+        TextView nowstar = (TextView)findViewById(R.id.nowstar);
+        TextView nowcontact = (TextView)findViewById(R.id.nowcontact);
+        TextView nowunknown = (TextView)findViewById(R.id.nowunknown);
+        TextView nowtimecount = (TextView)findViewById(R.id.nowtimecount);
+        NowMode(nowname, nowstar,nowcontact,nowunknown,nowtimecount);
     }
 
     @Override

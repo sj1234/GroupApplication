@@ -17,31 +17,42 @@ import android.widget.Toast;
 public class AppWidget extends AppWidgetProvider {
 
     final static String ACTION_CLICK = "com.example.sjeong.groupapplication.CLICK";
+    final static String ACTION_CHANGE = "com.example.sjeong.groupapplication.CHANGE";
+    private int ImageChange;
 
-    static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
-                                int appWidgetId) {
+    static void updateAppWidget(Context context, AppWidgetManager appWidgetManager, int appWidgetId) {
 
         CharSequence widgetText = context.getString(R.string.appwidget_text);
         // Construct the RemoteViews object
-
-        // 버튼튼
-        SharedPreferences preferences= context.getSharedPreferences("Mode", Activity.MODE_PRIVATE);
-
-        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.app_widget);
-        Intent intent = new Intent(context, AppWidget.class);
-        intent.setAction(ACTION_CLICK);
-        PendingIntent pendindintent = PendingIntent.getBroadcast(context, 0, intent, 0);
-        views.setOnClickPendingIntent(R.id.buttonWidget, pendindintent);
-
-        // Instruct the widget manager to update the widget
-        appWidgetManager.updateAppWidget(appWidgetId, views);
     }
+
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         // There may be multiple widgets active, so update all of them
+
         for (int appWidgetId : appWidgetIds) {
             updateAppWidget(context, appWidgetManager, appWidgetId);
+
+            // 버튼
+            SharedPreferences preferences= context.getSharedPreferences("Mode", Activity.MODE_PRIVATE);
+
+            RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.app_widget);
+            Intent intent = new Intent(context, AppWidget.class);
+            intent.setAction(ACTION_CLICK);
+            PendingIntent pendindintent = PendingIntent.getBroadcast(context, 0, intent, 0);
+            views.setOnClickPendingIntent(R.id.buttonWidget, pendindintent);
+
+            if(preferences.getString("set","off").equals("off")) {
+                views.setImageViewResource(R.id.buttonWidget, R.drawable.wiget_off);
+            }
+            else{
+                views.setImageViewResource(R.id.buttonWidget, R.drawable.wiget_on);
+            }
+
+            // Instruct the widget manager to update the widget
+            appWidgetManager.updateAppWidget(appWidgetId, views);
+
         }
     }
 
@@ -59,16 +70,30 @@ public class AppWidget extends AppWidgetProvider {
     public void onReceive(Context context, Intent intent) {
         // 위젯 업데이트
         if(ACTION_CLICK.equals(intent.getAction())){
-
-            //버튼 화면!!!
-            Toast.makeText(context,"mode off", Toast.LENGTH_LONG).show();
-
             SharedPreferences preferences= context.getSharedPreferences("Mode", Activity.MODE_PRIVATE);
             SharedPreferences.Editor editor = preferences.edit();
 
-            editor.putString("set", "off");
-            editor.commit();
+            if(preferences.getString("set", "off").equals("off") && !preferences.getString("name", "null").equals("null")) {
+                Toast.makeText(context,"Mode On "+preferences.getString("name", "null"), Toast.LENGTH_LONG).show();
+                editor.putString("set", "on");
+                editor.commit();
+            }
+            else if(preferences.getString("set", "off").equals("on")){
+                Toast.makeText(context,"Mode Off", Toast.LENGTH_LONG).show();
+                editor.putString("set", "off");
+                editor.commit();
+            }
+            else {
+                Toast.makeText(context,"No Mode Set Before", Toast.LENGTH_LONG).show();
+                editor.putString("set", "off");
+                editor.commit();
+            }
 
+            AppWidgetManager manager = AppWidgetManager.getInstance(context);
+            this.onUpdate(context, manager, manager.getAppWidgetIds(new ComponentName(context, AppWidget.class)));
+            return;
+        }
+        else if(ACTION_CHANGE.equals(intent.getAction())) {
             AppWidgetManager manager = AppWidgetManager.getInstance(context);
             this.onUpdate(context, manager, manager.getAppWidgetIds(new ComponentName(context, AppWidget.class)));
             return;
