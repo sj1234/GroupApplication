@@ -2,4 +2,17 @@
     <string name="app_name">GroupApplication</string>
     <string name="appwidget_text">EXAMPLE</string>
     <string name="add_widget">Add widget</string>
+    <string name="timeSet">timeSet</string>
+    <string name="timeReset">timeReset</string>
+    <string name="Clear">Clear</string>
+    <string name="Sun">Sun</string>
+    <string name="Mon">Mon</string>
+    <string name="Tue">Tue</string>
+    <string name="Wed">Wed</string>
+    <string name="Thu">Thu</string>
+    <string name="Fri">Fri</string>
+    <string name="Sat">Sat</string>
+    <string name="Alarm_StartingTime">Alarm_StartingTime</string>
+    <string name="Alarm_FinishingTime">Alarm_FinishingTime</string>
+    <string name="amSw">amSw</string>
 </resources>

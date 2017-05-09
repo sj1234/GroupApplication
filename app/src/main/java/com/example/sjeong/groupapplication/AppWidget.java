@@ -15,6 +15,7 @@ import android.widget.Toast;
  * Implementation of App Widget functionality.
  */
 public class AppWidget extends AppWidgetProvider {
+
     final static String ACTION_CLICK = "com.example.sjeong.groupapplication.CLICK";
 
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
@@ -24,7 +25,9 @@ public class AppWidget extends AppWidgetProvider {
         // Construct the RemoteViews object
 
         // 버튼튼
-       RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.app_widget);
+        SharedPreferences preferences= context.getSharedPreferences("Mode", Activity.MODE_PRIVATE);
+
+        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.app_widget);
         Intent intent = new Intent(context, AppWidget.class);
         intent.setAction(ACTION_CLICK);
         PendingIntent pendindintent = PendingIntent.getBroadcast(context, 0, intent, 0);
@@ -56,6 +59,8 @@ public class AppWidget extends AppWidgetProvider {
     public void onReceive(Context context, Intent intent) {
         // 위젯 업데이트
         if(ACTION_CLICK.equals(intent.getAction())){
+
+            //버튼 화면!!!
             Toast.makeText(context,"mode off", Toast.LENGTH_LONG).show();
 
             SharedPreferences preferences= context.getSharedPreferences("Mode", Activity.MODE_PRIVATE);

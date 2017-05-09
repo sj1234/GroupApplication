@@ -51,18 +51,22 @@
             android:name=".LaterCall"
             android:enabled="true"
             android:exported="true" />
-
         <receiver android:name=".AppWidget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-                <action android:name="com.example.sjeong.groupapplication.CLICK" />
+                <action android:name="android.appwidget.action.CLICK" />
             </intent-filter>
 
             <meta-data
                 android:name="android.appwidget.provider"
                 android:resource="@xml/app_widget_info" />
         </receiver>
+        <receiver
+            android:name=".AlarmReceiver"
+            android:enabled="true"
+            android:exported="true" />
 
+        <activity android:name=".ScheduleActivity"></activity>
     </application>
 
 </manifest>

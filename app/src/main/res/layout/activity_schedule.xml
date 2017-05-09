@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.sjeong.groupapplication.ScheduleActivity">
+
+    <TextView android:layout_height="wrap_content" android:layout_width="0dp" app:layout_constraintTop_toTopOf="parent" app:layout_constraintLeft_toLeftOf="parent" tools:layout_constraintLeft_creator="1" app:layout_constraintBottom_toBottomOf="parent" tools:layout_constraintBottom_creator="1" tools:layout_constraintTop_creator="1" android:text=""/>
+
+    <Button android:layout_height="wrap_content" android:layout_width="wrap_content" app:layout_constraintTop_toTopOf="parent" app:layout_constraintLeft_toLeftOf="parent" tools:layout_constraintLeft_creator="1" tools:layout_constraintTop_creator="1" android:text="@string/timeSet" app:layout_constraintHorizontal_bias="0.0" android:layout_marginTop="103dp" app:layout_constraintRight_toRightOf="parent" android:layout_marginEnd="8dp" android:layout_marginStart="8dp" tools:layout_constraintRight_creator="1" android:onClick="onButton" android:id="@+id/timeSet"/>
+
+    <Button android:layout_height="wrap_content" android:layout_width="wrap_content" app:layout_constraintTop_toTopOf="parent" app:layout_constraintLeft_toLeftOf="parent" tools:layout_constraintLeft_creator="1" tools:layout_constraintTop_creator="1" android:text="@string/timeReset" app:layout_constraintHorizontal_bias="0.0" android:layout_marginTop="217dp" app:layout_constraintRight_toRightOf="parent" android:layout_marginEnd="8dp" android:layout_marginStart="8dp" tools:layout_constraintRight_creator="1" android:onClick="onButton" android:id="@+id/timeReset"/>
+
+    <Button android:layout_height="wrap_content" android:layout_width="wrap_content" app:layout_constraintTop_toTopOf="parent" app:layout_constraintLeft_toLeftOf="parent" tools:layout_constraintLeft_creator="1" tools:layout_constraintTop_creator="1" android:text="@string/Clear" app:layout_constraintHorizontal_bias="0.797" android:layout_marginTop="340dp" app:layout_constraintRight_toRightOf="parent" android:layout_marginEnd="8dp" android:layout_marginStart="8dp" tools:layout_constraintRight_creator="1" android:onClick="onButton" android:id="@+id/Clear"/>
+
+    <EditText android:layout_height="wrap_content" android:layout_width="wrap_content" app:layout_constraintLeft_toLeftOf="parent" tools:layout_constraintLeft_creator="1" tools:layout_constraintTop_creator="1" android:text="Alarm_StartingTime" android:layout_marginTop="11dp" android:layout_marginStart="16dp" android:id="@+id/amStart" app:layout_constraintTop_toBottomOf="@+id/timeSet"/>
+
+    <EditText android:layout_height="wrap_content" android:layout_width="wrap_content" app:layout_constraintLeft_toLeftOf="parent" tools:layout_constraintLeft_creator="1" tools:layout_constraintTop_creator="1" android:text="Alarm_FinishingTime" android:layout_marginTop="11dp" android:layout_marginStart="16dp" android:id="@+id/amFinish" app:layout_constraintTop_toBottomOf="@+id/timeReset"/>
+
+
+    <LinearLayout android:layout_height="wrap_content" android:layout_width="wrap_content" app:layout_constraintTop_toTopOf="parent" app:layout_constraintLeft_toLeftOf="parent" tools:layout_constraintLeft_creator="1" tools:layout_constraintBottom_creator="1" tools:layout_constraintTop_creator="1" android:layout_marginTop="39dp" android:layout_marginStart="16dp" android:layout_marginBottom="24dp" app:layout_constraintBottom_toTopOf="@+id/timeSet" android:orientation="horizontal" android:gravity="center">
+
+    <ToggleButton android:layout_height="40dp" android:layout_width="40dp" android:id="@+id/toggle_sun" android:textOn="Sun" android:textOff="Sun" android:textAppearance="?android:attr/textAppearanceSmall"/>
+
+    <ToggleButton android:layout_height="40dp" android:layout_width="40dp" android:id="@+id/toggle_mon" android:textOn="Mon" android:textOff="Mon" android:textAppearance="?android:attr/textAppearanceSmall"/>
+
+    <ToggleButton android:layout_height="40dp" android:layout_width="40dp" android:id="@+id/toggle_tue" android:textOn="Tue" android:textOff="Tue" android:textAppearance="?android:attr/textAppearanceSmall"/>
+
+    <ToggleButton android:layout_height="40dp" android:layout_width="40dp" android:id="@+id/toggle_wed" android:textOn="Wed" android:textOff="Wed" android:textAppearance="?android:attr/textAppearanceSmall"/>
+
+    <ToggleButton android:layout_height="40dp" android:layout_width="40dp" android:id="@+id/toggle_thu" android:textOn="Thu" android:textOff="Thu" android:textAppearance="?android:attr/textAppearanceSmall"/>
+
+    <ToggleButton android:layout_height="40dp" android:layout_width="40dp" android:id="@+id/toggle_fri" android:textOn="Fri" android:textOff="Fri" android:textAppearance="?android:attr/textAppearanceSmall"/>
+
+    <ToggleButton android:layout_height="40dp" android:layout_width="40dp" android:id="@+id/toggle_sat" android:textOn="Sat" android:textOff="Sat" android:textAppearance="?android:attr/textAppearanceSmall"/>
+
+</LinearLayout>
+
+    <Switch android:layout_height="wrap_content" android:layout_width="wrap_content" app:layout_constraintLeft_toLeftOf="@+id/Clear" tools:layout_constraintLeft_creator="1" tools:layout_constraintTop_creator="1" android:text="amSw" android:layout_marginTop="22dp" android:id="@+id/amSw" app:layout_constraintTop_toBottomOf="@+id/Clear" android:textOn="On" android:textOff="Off" android:checked="true"/>
+
+</android.support.constraint.ConstraintLayout>

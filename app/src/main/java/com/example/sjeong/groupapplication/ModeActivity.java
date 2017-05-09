@@ -108,6 +108,8 @@ public class ModeActivity extends AppCompatActivity implements View.OnClickListe
                     break;
                 case R.id.delete:
                     Log.i("test tag", modename);
+                    dbManager.deleteMode(modename);
+                    onResume();
                     break;
 
             }

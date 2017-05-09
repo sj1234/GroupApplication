@@ -80,10 +80,11 @@ public class DBManager extends SQLiteOpenHelper {
         db.execSQL(updatedb, new Object[]{schedule.getName().toString(), schedule.getOrg_ring().toString(), schedule.getChg_ring().toString(), schedule.getStart(), schedule.getEnd(), schedule.getSun().booleanValue(), schedule.getMon().booleanValue(), schedule.getTue().booleanValue(), schedule.getWed().booleanValue(), schedule.getThu().booleanValue(), schedule.getFri().booleanValue(), schedule.getSat().booleanValue(), schedule.getModename().toString(), originalname});
     }
 
-    public void deleteMode(String modename, Mode mode){
+    public void deleteMode(String modename){
         SQLiteDatabase db  = getWritableDatabase();
         String deletetable = "DELETE FROM MODE WHERE NAME = ?;";
-        db.execSQL(deletetable, new Object[]{mode.getName().toString(), modename});
+        db.execSQL(deletetable, new Object[]{modename});
+        Log.i("test DB", "delete mode"+modename);
     }
 
     public void deleteSchedule(String schedulename, Schedule schedule){

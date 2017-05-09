@@ -45,7 +45,7 @@ int a ,z=0;
         example.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent2 = new Intent(MainActivity.this, ExampleActivity.class);
+                Intent intent2 = new Intent(MainActivity.this, ScheduleActivity.class);
 
                 startActivity(intent2);
                 overridePendingTransition(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right);
