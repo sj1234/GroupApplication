@@ -11,11 +11,6 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
-    private Button home;
-    private Button mode;
-    private Button schedule;
-    private Button setting;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,10 +24,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         NowMode(nowname, nowstar,nowcontact,nowunknown,nowtimecount);
 
 
-        home = (Button) findViewById(R.id.home);
-        mode = (Button) findViewById(R.id.mode);
-        schedule= (Button) findViewById(R.id.schedule);
-        setting = (Button) findViewById(R.id.setting);
+        Button home = (Button) findViewById(R.id.home);
+        Button mode = (Button) findViewById(R.id.mode);
+        Button schedule= (Button) findViewById(R.id.schedule);
+        Button setting = (Button) findViewById(R.id.setting);
 
         home.setOnClickListener(this);
         mode.setOnClickListener(this);
