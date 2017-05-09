@@ -7,13 +7,12 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 
 
-public class OptionActivity extends AppCompatActivity implements OnClickListener{
+public class OptionActivity extends AppCompatActivity implements View.OnClickListener{
 
     final Context context = this;
     Button bttn_main, bttn_exm,bttn_mode ;
@@ -26,18 +25,11 @@ public class OptionActivity extends AppCompatActivity implements OnClickListener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_option);
 
-        bttn_main = (Button) findViewById(R.id.bttn_main);
-        bttn_exm = (Button) findViewById(R.id.bttn_exm);
-        bttn_mode = (Button) findViewById(R.id.bttn_mode);
 
         SharedPreferences preferences = getSharedPreferences("Later", Activity.MODE_PRIVATE);
         switchlater = (Switch) findViewById(R.id.later);
         switchlater.setChecked(preferences.getString("onoff", "off").equals("on"));
         switchlater.setText("나중에 알림");
-
-        bttn_main.setOnClickListener(this);
-        bttn_exm.setOnClickListener(this);
-        bttn_mode.setOnClickListener(this);
 
         switchlater.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -53,26 +45,40 @@ public class OptionActivity extends AppCompatActivity implements OnClickListener
             }
         });
 
-    }
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.bttn_main:
-                Intent intent1 = new Intent(OptionActivity.this,MainActivity.class);
+        Button home = (Button) findViewById(R.id.home_option);
+        Button mode = (Button) findViewById(R.id.mode_option);
+        Button schedule= (Button) findViewById(R.id.schedule_option);
+        Button setting = (Button) findViewById(R.id.setting_option);
 
-                startActivity(intent1);
-                overridePendingTransition(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right);
+        home.setOnClickListener(this);
+        mode.setOnClickListener(this);
+        schedule.setOnClickListener(this);
+        setting.setOnClickListener(this);
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        Intent intent=null;
+
+        switch (v.getId()) {
+            case R.id.home_option:
+                intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
                 finish();
                 break;
-
-            case R.id.bttn_mode:
-
-                Intent intent4 = new Intent(OptionActivity.this,ModeActivity.class);
-
-                startActivity(intent4);
-                overridePendingTransition(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right);
+            case R.id.mode_option:
+                intent = new Intent(this, ModeActivity.class);
+                startActivity(intent);
                 finish();
-
-
+                break;
+            case R.id.schedule_option:
+                intent = new Intent(this, ScheduleActivity.class);
+                startActivity(intent);
+                finish();
+                break;
+            case R.id.setting_option:
+                break;
             default:
                 break;
         }

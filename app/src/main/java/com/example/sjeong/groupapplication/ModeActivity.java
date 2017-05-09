@@ -32,7 +32,6 @@ public class ModeActivity extends AppCompatActivity implements View.OnClickListe
         // DB생성
         if (dbManager == null) {
             dbManager = new DBManager(ModeActivity.this, "AlarmCall", null, 1);
-            //dbManager.DeleteDB();
             dbManager.ReadDB();
         }
 
