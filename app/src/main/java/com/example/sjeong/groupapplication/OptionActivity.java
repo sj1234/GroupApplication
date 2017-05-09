@@ -1,7 +1,6 @@
 package com.example.sjeong.groupapplication;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -14,20 +13,15 @@ import android.widget.Switch;
 
 public class OptionActivity extends AppCompatActivity implements View.OnClickListener{
 
-    final Context context = this;
-    Button bttn_main, bttn_exm,bttn_mode ;
-    private Switch switchlater;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_option);
 
 
         SharedPreferences preferences = getSharedPreferences("Later", Activity.MODE_PRIVATE);
-        switchlater = (Switch) findViewById(R.id.later);
+        Switch switchlater = (Switch) findViewById(R.id.later);
         switchlater.setChecked(preferences.getString("onoff", "off").equals("on"));
         switchlater.setText("나중에 알림");
 
