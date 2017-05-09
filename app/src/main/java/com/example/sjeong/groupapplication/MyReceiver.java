@@ -27,13 +27,15 @@ import java.util.Date;
 
 public class MyReceiver extends BroadcastReceiver {
 
-    private Context callcontext;
-    public static TelephonyManager TelMag;
-    private PhoneStateListener phonelistener;
-    private static String callstate;
+
     private String Tag = "test MyReciver";
+
+    public static TelephonyManager TelMag;
+    private static String callstate;
+    private Context callcontext;
+    private PhoneStateListener phonelistener;
     private PopupActivity pop;
-    private  HandleRing handleRing;
+    private HandleRing handleRing;
     private SharedPreferences preferences;
     private int latercallonoff;
 
