@@ -4,15 +4,14 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.media.Image;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
-import android.widget.ImageButton;
 
 import java.util.ArrayList;
 
@@ -99,16 +98,6 @@ public class ModeActivity extends AppCompatActivity implements View.OnClickListe
                 break;
         }
     }
-
-    /*
-    AdapterView.OnItemClickListener ListViewItemClickListener = new AdapterView.OnItemClickListener() {
-        public void onItemClick(AdapterView<?> parentView, View clickedView, int position, long id) {
-            Intent intent = new Intent(ModeActivity.this, ModeSetActivity.class);
-            intent.putExtra("Name",((TextView)clickedView).getText().toString());
-            startActivity(intent);
-        }
-    };
-    */
 
     View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override

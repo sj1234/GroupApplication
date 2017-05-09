@@ -7,10 +7,8 @@ package com.example.sjeong.groupapplication;
 public class Schedule {
 
     private String name;
-    private String org_ring;
-    private String chg_ring;
-    private int start;
-    private int end;
+    private String start;
+    private String end;
     private Boolean sun;
     private Boolean mon;
     private Boolean tue;
@@ -19,24 +17,18 @@ public class Schedule {
     private Boolean fri;
     private Boolean sat;
     private String modename;
+    private String premodename;
+
 
     public String getName() {
         return name;
     }
 
-    public String getOrg_ring() {
-        return org_ring;
-    }
-
-    public String getChg_ring() {
-        return chg_ring;
-    }
-
-    public int getStart() {
+    public String getStart() {
         return start;
     }
 
-    public int getEnd() {
+    public String getEnd() {
         return end;
     }
 
@@ -70,21 +62,18 @@ public class Schedule {
 
     public String getModename() { return modename;}
 
-    public void setName(String name) {this.name = name;}
+    public String getPremodename() { return premodename;}
 
-    public void setOrg_ring(String org_ring){
-        this.org_ring = org_ring;
+
+    public void setName(String name){
+        this.name = name;
     }
 
-    public void setChg_ring(String chg_ring){
-        this.chg_ring = chg_ring;
-    }
-
-    public void setStart(int start){
+    public void setStart(String start){
         this.start = start;
     }
 
-    public void setEnd(int end){
+    public void setEnd(String end){
         this.end = end;
     }
 
@@ -117,4 +106,6 @@ public class Schedule {
     }
 
     public void setModename(String modename) { this.modename = modename; }
+
+    public void setPremodename(String premodename) { this.premodename = premodename; }
 }

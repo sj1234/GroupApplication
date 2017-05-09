@@ -20,7 +20,6 @@ public class ListAdapter extends BaseAdapter {
     private Context context;
     private int layout;
     private ArrayList<String> arraylist;
-    private String name;
     private View.OnClickListener onClickListener;
 
     public ListAdapter(Context context, int layout, ArrayList<String> arraylist, View.OnClickListener onClickListener){
@@ -60,8 +59,6 @@ public class ListAdapter extends BaseAdapter {
         TextView textView = (TextView) convertView.findViewById(R.id.itemmode);
         Button buttonselect = (Button)convertView.findViewById(R.id.select) ;
         Button buttondelete = (Button)convertView.findViewById(R.id.delete) ;
-
-        name = arraylist.get(position).toString();
 
         Log.i("test listbutton", arraylist.get(position).toString());
         textView.setText(arraylist.get(position).toString());
