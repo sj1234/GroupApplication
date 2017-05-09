@@ -8,54 +8,77 @@
     tools:context="com.example.sjeong.groupapplication.MainActivity">
 
 
-    <TextView
-        android:id="@+id/nowname"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_weight="1"/>
-
-    <TextView
-        android:id="@+id/nowstar"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_weight="1"/>
-
-    <TextView
-        android:id="@+id/nowcontact"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_weight="1"/>
-
-    <TextView
-        android:id="@+id/nowunknown"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_weight="1"/>
-
-    <TextView
-        android:id="@+id/nowtimecount"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_weight="1"/>
-
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
         android:layout_weight="1">
 
+        <TextView
+            android:id="@+id/nowname"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:id="@+id/nowstar"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:id="@+id/nowcontact"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:id="@+id/nowunknown"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:id="@+id/nowtimecount"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="10">
+
 
         <Button
-            android:id="@+id/bttn_option"
-            android:layout_width="119dp"
-            android:layout_height="48dp"
-            android:text="OPTION" />
-
-        <Button
-            android:id="@+id/example"
+            android:id="@+id/home"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="EXAMPLE" />
+            android:text="HOME"
+            android:layout_weight="1"/>
 
+        <Button
+            android:id="@+id/mode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="MODE"
+            android:layout_weight="1"/>
+
+        <Button
+            android:id="@+id/schedule"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SCHEDULE"
+            android:layout_weight="1"/>
+
+        <Button
+            android:id="@+id/setting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SETTING"
+            android:layout_weight="1"/>
     </LinearLayout>
 
 </LinearLayout>

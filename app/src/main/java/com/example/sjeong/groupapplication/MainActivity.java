@@ -9,11 +9,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
-int a ,z=0;
-    Button bttn_option;
-    Button example;
+    private Button home;
+    private Button mode;
+    private Button schedule;
+    private Button setting;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,32 +29,42 @@ int a ,z=0;
         NowMode(nowname, nowstar,nowcontact,nowunknown,nowtimecount);
 
 
-        bttn_option = (Button) findViewById(R.id.bttn_option);
-        example = (Button) findViewById(R.id.example);
+        home = (Button) findViewById(R.id.home);
+        mode = (Button) findViewById(R.id.mode);
+        schedule= (Button) findViewById(R.id.schedule);
+        setting = (Button) findViewById(R.id.setting);
 
-        bttn_option.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
+        home.setOnClickListener(this);
+        mode.setOnClickListener(this);
+        schedule.setOnClickListener(this);
+        setting.setOnClickListener(this);
+    }
 
-                Intent intent1 = new Intent(MainActivity.this, OptionActivity.class);
+    @Override
+    public void onClick(View v) {
+        Intent intent=null;
 
-                startActivity(intent1);
-                overridePendingTransition(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right);
+        switch (v.getId()) {
+            case R.id.home:
+                break;
+            case R.id.mode:
+                intent = new Intent(MainActivity.this, ModeActivity.class);
+                startActivity(intent);
                 finish();
-            }
-
-        });
-
-        example.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent2 = new Intent(MainActivity.this, ScheduleActivity.class);
-
-                startActivity(intent2);
-                overridePendingTransition(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right);
+                break;
+            case R.id.schedule:
+                intent = new Intent(MainActivity.this, ScheduleActivity.class);
+                startActivity(intent);
                 finish();
-
-            }
-        });
+                break;
+            case R.id.setting:
+                intent = new Intent(MainActivity.this, OptionActivity.class);
+                startActivity(intent);
+                finish();
+                break;
+            default:
+                break;
+        }
     }
 
     public void NowMode(TextView nowname, TextView nowstar,TextView nowcontact,TextView nowunknown,TextView nowtimecount){
