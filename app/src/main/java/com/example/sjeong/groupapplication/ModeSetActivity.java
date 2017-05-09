@@ -6,11 +6,13 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -47,7 +49,7 @@ public class ModeSetActivity extends AppCompatActivity implements View.OnClickLi
         Button star = (Button) this.findViewById(R.id.star);
         star.setOnClickListener((View.OnClickListener) this);
 
-        Button contact = (Button) this.findViewById(R.id.contact);
+        final Button contact = (Button) this.findViewById(R.id.contact);
         contact.setOnClickListener((View.OnClickListener) this);
 
         Button unknown = (Button) this.findViewById(R.id.unknown);
@@ -79,18 +81,28 @@ public class ModeSetActivity extends AppCompatActivity implements View.OnClickLi
             contacttxt.setText("수신음을 선택해 주세요");
             unknowntxt.setText("수신음을 선택해 주세요");
         }
-        Spinner s1 = (Spinner)findViewById(R.id.timespinner);
+
+
+       final Spinner s1 = (Spinner)findViewById(R.id.timespinner);
+
         s1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view,
                                        int position, long id) {
                 timetxt.setText("TIME : "+parent.getItemAtPosition(position));
                 mode.setTime(Integer.parseInt(""+parent.getItemAtPosition(position)));
+
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> parent) {}
         });
+
+        s1.setSelection(mode.getTime()-1);
+
         Spinner s2 = (Spinner)findViewById(R.id.countspinner);
+
+
         s2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view,
@@ -101,11 +113,11 @@ public class ModeSetActivity extends AppCompatActivity implements View.OnClickLi
             @Override
             public void onNothingSelected(AdapterView<?> parent) {}
         });
-
-
-
+        s2.setSelection(mode.getCount()-1);
 
     }
+
+
 
     @Override
     public void onClick(View v) {
