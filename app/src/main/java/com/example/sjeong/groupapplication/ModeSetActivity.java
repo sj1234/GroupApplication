@@ -6,13 +6,11 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -76,7 +74,7 @@ public class ModeSetActivity extends AppCompatActivity implements View.OnClickLi
         }
         else {
             mode = new Mode();
-            modename.setText("모드 이름");
+            modename.setHint("모드 이름");
             startxt.setText("수신음을 선택해 주세요");
             contacttxt.setText("수신음을 선택해 주세요");
             unknowntxt.setText("수신음을 선택해 주세요");

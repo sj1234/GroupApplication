@@ -7,6 +7,7 @@
     android:orientation="vertical"
     tools:context="com.example.sjeong.groupapplication.ModeActivity">
 
+
     <ListView
         android:id="@+id/listView"
         android:layout_width="match_parent"
@@ -14,7 +15,6 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_weight="9"/>
-
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -39,8 +39,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1">
+        android:layout_height="50dp">
 
         <ImageButton
             android:id="@+id/home_mode"
@@ -48,8 +47,7 @@
             android:layout_height="wrap_content"
             android:text="HOME"
             android:padding="0dp"
-            android:background="@drawable/to_home"
-            android:layout_weight="1"/>
+            android:background="@drawable/home_off" />
 
         <ImageButton
             android:id="@+id/mode_mode"
@@ -57,8 +55,7 @@
             android:layout_height="wrap_content"
             android:text="MODE"
             android:padding="0dp"
-            android:background="@drawable/mode_on"
-            android:layout_weight="1"/>
+            android:background="@drawable/mode_on" />
 
         <ImageButton
             android:id="@+id/schedule_mode"
@@ -66,8 +63,7 @@
             android:layout_height="wrap_content"
             android:text="SCHEDULE"
             android:padding="0dp"
-            android:background="@drawable/to_schedule"
-            android:layout_weight="1"/>
+            android:background="@drawable/schedule_off" />
 
         <ImageButton
             android:id="@+id/setting_mode"
@@ -75,8 +71,7 @@
             android:layout_height="wrap_content"
             android:text="SETTING"
             android:padding="0dp"
-            android:background="@drawable/to_setting"
-            android:layout_weight="1"/>
+            android:background="@drawable/setting_off" />
 
     </LinearLayout>
 
