@@ -40,6 +40,9 @@
 
         <activity android:name=".ModeActivity" />
         <activity android:name=".ModeSetActivity" />
+        <activity android:name=".PrefSettingActivity"/>
+
+
         <activity
             android:name=".PopupActivity"
             android:screenOrientation="sensorPortrait"

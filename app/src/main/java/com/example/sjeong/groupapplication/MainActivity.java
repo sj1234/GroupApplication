@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.preference.PreferenceFragment;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
     int z = 0;
@@ -20,6 +21,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
 
         home = (ImageButton) findViewById(R.id.home);
         mode = (ImageButton) findViewById(R.id.mode);
@@ -62,7 +65,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 finish();
                 break;
             case R.id.setting:
-                intent = new Intent(MainActivity.this, OptionActivity.class);
+                intent = new Intent(MainActivity.this, PrefSettingActivity.class);
                 startActivity(intent);
                 finish();
                 break;
@@ -114,7 +117,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return null;
     }
 
+
+
 }
+
 
 
 
