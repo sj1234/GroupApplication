@@ -7,44 +7,56 @@
     android:orientation="vertical"
     tools:context="com.example.sjeong.groupapplication.ScheduleSetActivity">
 
-    <Button
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:text="@string/timeSet"
-        android:id="@+id/timeSet"
-        android:onClick="onButton"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <Button
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:text="@string/timeReset"
-        android:id="@+id/timeReset"
-        android:onClick="onButton"/>
+        <Button
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="@string/timeSet"
+            android:id="@+id/timeSet"
+            android:onClick="onButton"/>
 
-    <Button
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:text="@string/Clear"
-        android:id="@+id/Clear"/>
+        <TextView
+            android:id="@+id/amStart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Alarm_StartingTime" />
 
-    <TextView
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:text="Alarm_StartingTime"
-        android:id="@+id/amStart" />
+    </LinearLayout>
 
-    <TextView
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:text="Alarm_FinishingTime"
-        android:id="@+id/amFinish" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
+        <Button
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="@string/timeReset"
+            android:id="@+id/timeReset"
+            android:onClick="onButton"/>
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="Alarm_FinishingTime"
+            android:id="@+id/amFinish" />
+
+    </LinearLayout>
+
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="340dp"/>
 
     <LinearLayout
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center">
+        android:orientation="horizontal">
 
         <ToggleButton android:layout_height="40dp" android:layout_width="40dp" android:id="@+id/toggle_sun" android:textOn="Sun" android:textOff="Sun" android:textAppearance="?android:attr/textAppearanceSmall"/>
 
@@ -71,19 +83,11 @@
         android:textOff="Off"
         android:checked="true"/>
 
-    <Spinner
-        android:id="@+id/spinner"
-        android:layout_width="match_parent"
+    <Button
+        android:id="@+id/save"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="340dp" />
-
-    <EditText
-        android:id="@+id/schedulename"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Name" />
+        android:text="저장"
+        android:layout_gravity="center"/>
 
 </LinearLayout>

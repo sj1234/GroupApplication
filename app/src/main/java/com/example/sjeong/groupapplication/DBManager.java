@@ -24,9 +24,8 @@ public class DBManager extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String table = "CREATE TABLE MODE"+ "(NAME TEXT PRIMARY KEY NOT NULL,"+"STAR INTEGER NOT NULL,"+"CONTACT INTEGER NOT NULL,"+"UNKNOWN INTEGER NOT NULL,"+" TIME INTEGER NOT NULL,"+" COUNT INTEGER NOT NULL);";
-        String table2 = "CREATE TABLE SCHEDULE(NAME TEXT PRIMARY KEY NOT NULL, START TEXT, END TEXT, " +
+        String table2 = "CREATE TABLE SCHEDULE(_id INTEGER PRIMARY KEY AUTOINCREMENT, START TEXT, END TEXT, " +
               "SUN BOOLEAN, MON BOOLEAN, TUE BOOLEAN,WED BOOLEAN, THU BOOLEAN, FRI BOOLEAN, SAT BOOLEAN, MODENAME TEXT, PREMODENAME TEXT);";
-
         db.execSQL(table);
         db.execSQL(table2);
 
@@ -36,7 +35,6 @@ public class DBManager extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
     }
 
     public void ReadDB() { SQLiteDatabase db = getReadableDatabase(); }
@@ -54,15 +52,14 @@ public class DBManager extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
         String insertdb = "INSERT INTO MODE("+"NAME, STAR, CONTACT, UNKNOWN, TIME, COUNT)"+" VALUES(?, ?, ?, ?, ?, ?);";
         db.execSQL(insertdb, new Object[]{mode.getName(), mode.getStar(), mode.getContact(), mode.getUnknown(), mode.getTime(), mode.getCount()});
-
         Toast.makeText(dbcontext, "insert", Toast.LENGTH_LONG).show();
         Log.i("test DB", "insert : " + mode.getName()+", "+mode.getStar()+", "+ mode.getContact()+", "+ mode.getUnknown()+", "+ mode.getTime()+", "+ mode.getCount());
     }
 
     public void insertSchedule(Schedule schedule){
         SQLiteDatabase db = getWritableDatabase();
-        String insertdb = "INSERT INTO SCHEDULE(NAME, START, END, SUN, MON, TUE, WED, THU, FRI, SAT, MODENAME, PREMODENAME) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
-        db.execSQL(insertdb, new Object[]{schedule.getName(), schedule.getStart(), schedule.getEnd(), schedule.getSun().booleanValue(), schedule.getMon().booleanValue(), schedule.getTue().booleanValue(), schedule.getWed().booleanValue(), schedule.getThu().booleanValue(), schedule.getFri().booleanValue(), schedule.getSat().booleanValue(), schedule.getModename().toString(), schedule.getPremodename().toString()});
+        String insertdb = "INSERT INTO SCHEDULE(_id, START, END, SUN, MON, TUE, WED, THU, FRI, SAT, MODENAME, PREMODENAME) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+        db.execSQL(insertdb, new Object[]{null, schedule.getStart(), schedule.getEnd(), schedule.getSun().booleanValue(), schedule.getMon().booleanValue(), schedule.getTue().booleanValue(), schedule.getWed().booleanValue(), schedule.getThu().booleanValue(), schedule.getFri().booleanValue(), schedule.getSat().booleanValue(), schedule.getModename().toString(), schedule.getPremodename().toString()});
         Log.i("test DB", "insert : " + schedule.getStart()+", "+schedule.getEnd()+", "+schedule.getModename().toString()+", "+ schedule.getPremodename().toString());
     }
 
@@ -77,8 +74,8 @@ public class DBManager extends SQLiteOpenHelper {
 
     public void updateSchedule(String originalname, Schedule schedule){
         SQLiteDatabase db = getWritableDatabase();
-        String updatedb = "UPDATE SCHEDULE SET NAME = ?, ORG_RING =?, CHG_RING =?, START =?, END =?, SUN =?, MON =?, TUE =?, WED =?, THU =?, FRI =?, SAT =?, MODENAME =? WHERE NAME =?;";
-        //db.execSQL(updatedb, new Object[]{schedule.getName().toString(), schedule.getOrg_ring().toString(), schedule.getChg_ring().toString(), schedule.getStart(), schedule.getEnd(), schedule.getSun().booleanValue(), schedule.getMon().booleanValue(), schedule.getTue().booleanValue(), schedule.getWed().booleanValue(), schedule.getThu().booleanValue(), schedule.getFri().booleanValue(), schedule.getSat().booleanValue(), schedule.getModename().toString(), originalname});
+        String updatedb = "UPDATE SCHEDULE SET ORG_RING =?, CHG_RING =?, START =?, END =?, SUN =?, MON =?, TUE =?, WED =?, THU =?, FRI =?, SAT =?, MODENAME =? WHERE NAME =?;";
+        //db.execSQL(updatedb, new Object[]{schedule.getOrg_ring().toString(), schedule.getChg_ring().toString(), schedule.getStart(), schedule.getEnd(), schedule.getSun().booleanValue(), schedule.getMon().booleanValue(), schedule.getTue().booleanValue(), schedule.getWed().booleanValue(), schedule.getThu().booleanValue(), schedule.getFri().booleanValue(), schedule.getSat().booleanValue(), schedule.getModename().toString(), originalname});
     }
 
     public void deleteMode(String modename){
@@ -111,7 +108,7 @@ public class DBManager extends SQLiteOpenHelper {
         return modes;
     }
 
-    public ArrayList<Schedule> getSchedule(){
+    public ArrayList<Schedule> getSchedules(){
         String string = "SELECT * FROM SCHEDULE;";
         SQLiteDatabase db = getReadableDatabase();
 
@@ -122,11 +119,11 @@ public class DBManager extends SQLiteOpenHelper {
             do {
                 Schedule schedule = new Schedule();
 
-                schedule.setName(cursor.getString(0));
                 schedule.setStart(cursor.getString(1));
                 schedule.setEnd(cursor.getString(2));
                 schedule.setModename(cursor.getString(10));
                 schedule.setPremodename(cursor.getString(11));
+
                 schedules.add(schedule);
 
                 Log.i("test DBManager", cursor.getString(10));
@@ -139,15 +136,12 @@ public class DBManager extends SQLiteOpenHelper {
 
     public Mode getMode(String modename) {
 
-        Log.i("test DBManager", "get mode1");
         String string = "SELECT NAME, STAR, CONTACT, UNKNOWN, TIME, COUNT FROM MODE;";
         SQLiteDatabase db = getReadableDatabase();
 
-        Log.i("test DBManager", "get mode2" + string );
         Cursor cursor = db.rawQuery(string, null);
         Mode mode=new Mode();
 
-        Log.i("test DBManager", "get mode3");
         if(cursor.moveToFirst())
         {
             do {
@@ -159,7 +153,6 @@ public class DBManager extends SQLiteOpenHelper {
                     mode.setUnknown(cursor.getInt(3));
                     mode.setTime(cursor.getInt(4));
                     mode.setCount(cursor.getInt(5));
-                    Log.i("test DBManager", "get mode4");
                     return mode;
                 }
             }
@@ -169,6 +162,36 @@ public class DBManager extends SQLiteOpenHelper {
             Log.i("test DBManager", "get mode null");
 
         return mode;
+    }
+
+    public Schedule getSchedule(int position){
+        String string = "SELECT * FROM SCHEDULE;";
+        SQLiteDatabase db = getReadableDatabase();
+
+        Cursor cursor = db.rawQuery(string, null);
+        Schedule schedule=new Schedule();
+
+        int cusorposition=0;
+
+        if(cursor.moveToFirst())
+        {
+            do {
+                if (cusorposition==position) {
+                    schedule.setStart(cursor.getString(1));
+                    schedule.setEnd(cursor.getString(2));
+                    schedule.setModename(cursor.getString(10));
+                    schedule.setPremodename(cursor.getString(11));
+                    Log.i("test DBManager", "get schedule "+cursor.getString(1)+", "+cursor.getString(2)+", "+cursor.getString(10));
+                    return schedule;
+                }
+                cusorposition++;
+            }
+            while (cursor.moveToNext());
+        }
+        else
+            Log.i("test DBManager", "get mode null");
+
+        return null;
     }
 
 }

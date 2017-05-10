@@ -6,7 +6,6 @@ package com.example.sjeong.groupapplication;
 
 public class Schedule {
 
-    private String name;
     private String start;
     private String end;
     private Boolean sun;
@@ -19,10 +18,6 @@ public class Schedule {
     private String modename;
     private String premodename;
 
-
-    public String getName() {
-        return name;
-    }
 
     public String getStart() {
         return start;
@@ -63,11 +58,6 @@ public class Schedule {
     public String getModename() { return modename;}
 
     public String getPremodename() { return premodename;}
-
-
-    public void setName(String name){
-        this.name = name;
-    }
 
     public void setStart(String start){
         this.start = start;

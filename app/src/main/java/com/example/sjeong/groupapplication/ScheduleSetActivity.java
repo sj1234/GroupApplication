@@ -12,7 +12,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
-import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -20,6 +19,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -36,6 +36,7 @@ public class ScheduleSetActivity extends AppCompatActivity {
     Calendar calSet = (Calendar) calNow1.clone();
     Calendar calNow2 = Calendar.getInstance();
     Calendar calReset = (Calendar) calNow2.clone();
+    Boolean setRec = Boolean.FALSE; // True?대㈃ set False?대㈃ reset
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -57,9 +58,9 @@ public class ScheduleSetActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked == true) {
-                    Toast.makeText(ScheduleSetActivity.this, "?ㅼ쐞移?ON", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ScheduleSetActivity.this, "ON", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(ScheduleSetActivity.this, "?ㅼ쐞移?OFF", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ScheduleSetActivity.this, "OFF", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -90,14 +91,11 @@ public class ScheduleSetActivity extends AppCompatActivity {
         SharedPreferences preferences = getSharedPreferences("Mode", Activity.MODE_PRIVATE);
         schedule.setPremodename(preferences.getString("name",""));
 
-        final EditText schedulename = (EditText) findViewById(R.id.schedulename);
-
-        Button clear = (Button)findViewById(R.id.Clear);
-        clear.setOnClickListener(new View.OnClickListener() {
+        Button save = (Button)findViewById(R.id.save);
+        save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                schedule.setName(schedulename.getText().toString());
                 schedule.setMon(false);
                 schedule.setTue(false);
                 schedule.setWed(false);
@@ -105,8 +103,10 @@ public class ScheduleSetActivity extends AppCompatActivity {
                 schedule.setFri(false);
                 schedule.setSat(false);
                 schedule.setSun(false);
+
                 Toast.makeText(ScheduleSetActivity.this, "저장", Toast.LENGTH_SHORT).show();
                 dbManager.insertSchedule(schedule);
+                ScheduleSetActivity.this.finish();
             }
         });
     }
@@ -144,10 +144,13 @@ public class ScheduleSetActivity extends AppCompatActivity {
             if (calSet.compareTo(calNow1) <= 0) {
                 calSet.add(Calendar.DATE, 1);
             }
-            schedule.setStart(calSet.toString());
+
+            // 수정????   원래 schedule.setStart(calSet.toString());
+            SimpleDateFormat dateformat = new SimpleDateFormat("HH:mm", java.util.Locale.getDefault());
+            schedule.setStart(dateformat.format(calSet.getTime()));
 
             TextView Text1=(TextView) findViewById(R.id.amStart);
-            Text1.setText("시작시간"+ calSet.getTime());
+            Text1.setText("시작 시간 : "+ dateformat.format(calSet.getTime()));
         }
     };
 
@@ -163,9 +166,12 @@ public class ScheduleSetActivity extends AppCompatActivity {
                 calReset.add(Calendar.DATE, 1);
             }
 
-            schedule.setEnd(calReset.toString());
+            // 수정????   원래 schedule.setEnd(calReset.toString());
+            SimpleDateFormat dateformat = new SimpleDateFormat("HH:mm", java.util.Locale.getDefault());
+            schedule.setEnd(dateformat.format(calReset.getTime()));
+
             TextView Text1=(TextView) findViewById(R.id.amFinish);
-            Text1.setText("끝나는 시간 "+ calReset.getTime());
+            Text1.setText("종료 시간 : "+ dateformat.format(calReset.getTime()));
         }
     };
 }

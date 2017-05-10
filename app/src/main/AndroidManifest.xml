@@ -62,11 +62,6 @@
                 android:resource="@xml/app_widget_info" />
         </receiver>
 
-        <receiver
-            android:name=".AlarmReceiver"
-            android:enabled="true"
-            android:exported="true" />
-
         <activity android:name=".ScheduleActivity" />
         <activity android:name=".ScheduleSetActivity"></activity>
     </application>

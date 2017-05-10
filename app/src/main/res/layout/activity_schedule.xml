@@ -8,15 +8,18 @@
     tools:context="com.example.sjeong.groupapplication.ScheduleActivity">
 
 
+    <ListView
+        android:id="@+id/schedulelistview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="9"/>
+
     <Button
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:text="Make"
-        android:id="@+id/makeschedule"/>
+        android:id="@+id/makeschedule"
+        android:layout_weight="1"/>
 
-    <TextView
-        android:id="@+id/schedulelist"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
 
 </LinearLayout>
