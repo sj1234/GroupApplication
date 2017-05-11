@@ -44,6 +44,13 @@
             android:layout_height="match_parent"
             android:layout_weight="1"/>
 
+        <Switch
+            android:id="@+id/later"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Switch"
+            android:layout_gravity="center"/>
+
     </LinearLayout>
 
     <LinearLayout
