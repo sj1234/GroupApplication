@@ -1,6 +1,7 @@
 package com.example.sjeong.groupapplication;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -50,6 +51,7 @@ public class PrefSettingActivity extends PreferenceActivity implements OnPrefere
             CheckBoxPreference cbpAlarmReceive = (CheckBoxPreference) findPreference("setting_activity_alarm_reiceive");
             Preference pEmail = (Preference) findPreference("sending_email");
             final SwitchPreference pPushlater =  (SwitchPreference) findPreference("push_later");
+            Preference pBack = (Preference) findPreference("back");
 
 
             pAppName.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
@@ -75,14 +77,27 @@ public class PrefSettingActivity extends PreferenceActivity implements OnPrefere
                     return false;
                 }
             });
+            pBack.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+
+
+                    return false;
+                }
+            });
+
 
 
             /*SharedPreferences preferences = getSharedPreferences("Later", Activity.MODE_PRIVATE);
             pPushlater.setChecked(preferences.getString("onoff", "off").equals("on"));
             pPushlater.setText("나중에 알림");
             */
-            SharedPreferences preferences = getPreferenceManager().getSharedPreferences();
-            pPushlater.setChecked(preferences.getString("onoff", "off").equals("on"));
+
+            PreferenceManager preferenceManager = getPreferenceManager();
+            preferenceManager.setSharedPreferencesName("Later");
+            preferenceManager.setSharedPreferencesMode(Activity.MODE_PRIVATE);
+
+            pPushlater.setChecked(preferenceManager.getSharedPreferences().getString("onoff", "off").equals("on"));
 
 
             pPushlater.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
@@ -98,6 +113,9 @@ public class PrefSettingActivity extends PreferenceActivity implements OnPrefere
                     }
                     editor.commit();
                     */
+                    PreferenceManager preferenceManager = getPreferenceManager();
+                    preferenceManager.setSharedPreferencesName("Later");
+                    preferenceManager.setSharedPreferencesMode(Activity.MODE_PRIVATE);
                     SharedPreferences preferences = getPreferenceManager().getSharedPreferences();
                     SharedPreferences.Editor editor = preferences.edit();
                     if (pPushlater.isChecked()==true){
@@ -129,16 +147,13 @@ public class PrefSettingActivity extends PreferenceActivity implements OnPrefere
         }
         else if (preference.getKey().equals("push_later")) {
         }
-        return false;
-
-
-    }
-    public boolean onPreferenceSwitchClick(Preference preference , boolean isChecked) {
-        // 어플리케이션 이름
-       if (preference.getKey().equals("push_later")) {
+        else if (preference.getKey().equals("back")) {
         }
         return false;
+
+
     }
+
 
 
 }

@@ -39,6 +39,7 @@
 
     </PreferenceCategory>
 
+
     <PreferenceCategory
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:key="setting_activity_pushalarm"
@@ -47,5 +48,11 @@
         android:key="setting_activity_alarm_reiceive"
         android:title="ALARM SETTING" android:defaultValue="true"/>
     </PreferenceCategory>
+
+    <Preference
+        android:key="back"
+        android:title="HOME"
+        android:selectable="true" />
+
 
 </PreferenceScreen>
