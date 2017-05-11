@@ -81,7 +81,6 @@ public class PrefSettingActivity extends PreferenceActivity implements OnPrefere
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
 
-
                     return false;
                 }
             });
