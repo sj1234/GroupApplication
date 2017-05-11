@@ -103,10 +103,12 @@ public class ScheduleActivity extends AppCompatActivity implements View.OnClickL
                     int starttimeMINUTE = Integer.parseInt(start[1]);
                     int endtimeHOUR = Integer.parseInt(end[0]);
                     int endtimeMINUTE = Integer.parseInt(end[1]);
-                    calStart.set(calStart.get(calStart.YEAR), calStart.get(calStart.MONTH) , calStart.get(calStart.DATE), starttimeHOUR, starttimeMINUTE);
+                    calStart.set(calStart.get(calStart.YEAR), calStart.get(calStart.MONTH) , calStart.get(calStart.DATE), starttimeHOUR, starttimeMINUTE,0);
                     Log.i(Tag, " onbutton setting 시간 "+starttimeHOUR+"  setting 분" +starttimeMINUTE);
-                    calEnd.set(calEnd.get(calEnd.YEAR), calEnd.get(calEnd.MONTH) , calEnd.get(calEnd.DATE), endtimeHOUR, endtimeMINUTE);
+                    Log.i(Tag, " 스케줄 시작 시간 :  "+calStart.getTime());
+                    calEnd.set(calEnd.get(calEnd.YEAR), calEnd.get(calEnd.MONTH) , calEnd.get(calEnd.DATE), endtimeHOUR, endtimeMINUTE,0);
                     Log.i(Tag, " onbutton setting 시간 :  "+endtimeHOUR+"  setting 분 : " +endtimeMINUTE);
+                    Log.i(Tag, " 스케줄 종료 시간 :  "+calEnd.getTime());
                     amStartSet(calStart,v,chgMode);
                     amEndSet(calEnd,v,orgMode);
                     break;
