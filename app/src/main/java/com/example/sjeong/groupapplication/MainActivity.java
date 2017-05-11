@@ -6,7 +6,9 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.ImageButton;
+import android.widget.Switch;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
@@ -32,6 +34,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mode.setOnClickListener(this);
         schedule.setOnClickListener(this);
         setting.setOnClickListener(this);
+
+
+        SharedPreferences preferences = getSharedPreferences("Later", Activity.MODE_PRIVATE);
+        Switch switchlater = (Switch) findViewById(R.id.later);
+        switchlater.setChecked(preferences.getString("onoff", "off").equals("on"));
+        switchlater.setText("나중에 알림");
+
+        switchlater.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                SharedPreferences preferences = getSharedPreferences("Later", Activity.MODE_PRIVATE);
+                SharedPreferences.Editor editor = preferences.edit();
+                if (isChecked == true){
+                    editor.putString("onoff", "on");
+                } else {
+                    editor.putString("onoff", "off");
+                }
+                editor.commit();
+            }
+        });
     }
 
 

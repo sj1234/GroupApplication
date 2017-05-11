@@ -102,7 +102,7 @@ public class ModeActivity extends AppCompatActivity implements View.OnClickListe
                 finish();
                 break;
             case R.id.setting_mode:
-                intent = new Intent(this, OptionActivity.class);
+                intent = new Intent(this, PrefSettingActivity.class);
                 startActivity(intent);
                 finish();
                 break;

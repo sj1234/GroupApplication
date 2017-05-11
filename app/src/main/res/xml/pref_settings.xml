@@ -7,6 +7,14 @@
     <!-- 설정를 구성하는 Layout XML -->
     <!-- @author croute -->
     <!-- @since 2011.02.25 -->
+    <SwitchPreference
+
+        android:defaultValue="false"
+        android:key="push_later"
+        android:summary="나중에 알립니다"
+        android:switchTextOff="OFF"
+        android:switchTextOn="ON"
+        android:title="PUSH LATER" />
 
     <PreferenceCategory
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -35,12 +43,7 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:key="setting_activity_pushalarm"
         android:title="ALARM SETTING">
-    <CheckBoxPreference
-        android:key="setting_activity_autoalarm"
-        android:title="AUTO ALARM"
-        android:summary="어플리케이션 알림이 종료된 경우 자동으로 재실행"
-        android:defaultValue="true"/>
-    <CheckBoxPreference
+        <CheckBoxPreference
         android:key="setting_activity_alarm_reiceive"
         android:title="ALARM SETTING" android:defaultValue="true"/>
     </PreferenceCategory>
