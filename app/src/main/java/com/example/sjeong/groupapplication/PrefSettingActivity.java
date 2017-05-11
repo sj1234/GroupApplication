@@ -2,6 +2,7 @@ package com.example.sjeong.groupapplication;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.Preference;
@@ -14,6 +15,11 @@ import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.Toast;
 
+import static android.R.attr.defaultValue;
+import static android.R.attr.switchTextOff;
+import static android.R.attr.switchTextOn;
+import static java.lang.Boolean.FALSE;
+import static java.lang.Boolean.TRUE;
 
 
 public class PrefSettingActivity extends PreferenceActivity implements OnPreferenceClickListener
@@ -75,6 +81,9 @@ public class PrefSettingActivity extends PreferenceActivity implements OnPrefere
             pPushlater.setChecked(preferences.getString("onoff", "off").equals("on"));
             pPushlater.setText("나중에 알림");
             */
+            SharedPreferences preferences = getPreferenceManager().getSharedPreferences();
+            pPushlater.setChecked(preferences.getString("onoff", "off").equals("on"));
+
 
             pPushlater.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
@@ -89,6 +98,14 @@ public class PrefSettingActivity extends PreferenceActivity implements OnPrefere
                     }
                     editor.commit();
                     */
+                    SharedPreferences preferences = getPreferenceManager().getSharedPreferences();
+                    SharedPreferences.Editor editor = preferences.edit();
+                    if (pPushlater.isChecked()==true){
+                        editor.putString("onoff", "on");
+                    } else {
+                        editor.putString("onoff", "off");
+                    }
+                    editor.commit();
 
                     return false;
                 }
@@ -116,6 +133,14 @@ public class PrefSettingActivity extends PreferenceActivity implements OnPrefere
 
 
     }
+    public boolean onPreferenceSwitchClick(Preference preference , boolean isChecked) {
+        // 어플리케이션 이름
+       if (preference.getKey().equals("push_later")) {
+        }
+        return false;
+    }
+
+
 }
 
 

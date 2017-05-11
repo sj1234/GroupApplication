@@ -16,8 +16,6 @@
         android:switchTextOn="ON"
         android:title="PUSH LATER" />
 
-
-    출처: http://itmir.tistory.com/523 [미르의 IT 정복기]
     <PreferenceCategory
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:key="setting_activity_account"
