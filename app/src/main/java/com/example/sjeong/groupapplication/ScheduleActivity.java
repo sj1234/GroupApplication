@@ -1,6 +1,8 @@
 package com.example.sjeong.groupapplication;
 
 import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +14,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 
 
@@ -91,7 +94,21 @@ public class ScheduleActivity extends AppCompatActivity implements View.OnClickL
                     Log.i(Tag, "schedule on "+start[0]+"시 "+start[1]+"분 부터 "+end[0]+"시 "+end[1]+"분 까지");
                     // start[0] : 시작시간의 시간  / start[1] : 시작시간의 분 / end[0] : 종료시간의 시간 / end[1] : 종료시간의 분
                     // 여기에서 알람설정함수 부르면 될것같아
+
+                    Calendar calStart = Calendar.getInstance();
+                    Calendar calEnd = Calendar.getInstance();
+                    int starttimeHOUR = Integer.parseInt(start[0]);
+                    int starttimeMINUTE = Integer.parseInt(start[1]);
+                    int endtimeHOUR = Integer.parseInt(end[0]);
+                    int endtimeMINUTE = Integer.parseInt(end[1]);
+                    calStart.set(calStart.get(calStart.YEAR), calStart.get(calStart.MONTH) , calStart.get(calStart.DATE), starttimeHOUR, starttimeMINUTE);
+                    Log.i(Tag, " onbutton setting 시간 "+starttimeHOUR+"  setting 분" +starttimeMINUTE);
+                    calEnd.set(calEnd.get(calEnd.YEAR), calEnd.get(calEnd.MONTH) , calEnd.get(calEnd.DATE), endtimeHOUR, endtimeMINUTE);
+                    Log.i(Tag, " onbutton setting 시간 :  "+endtimeHOUR+"  setting 분 : " +endtimeMINUTE);
+                    amStartSet(calStart,v);
+                    amEndSet(calEnd,v);
                     break;
+
                 case R.id.scheduleoff:
                     Log.i(Tag, "schedule off "+position);
                     // 종료하는건 아직 안했어
@@ -141,4 +158,29 @@ public class ScheduleActivity extends AppCompatActivity implements View.OnClickL
 
     // 알람설정함수는 여기다가 만들어
     //publid void 알람설정set(){}
+    public void amStartSet(Calendar calStart, View v){
+        Log.i(Tag,"set Alarm Start");
+        Context context = getApplicationContext();
+        am = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(context, AlarmReceiver.class);
+        // 시작시간
+        setRec=Boolean.TRUE;
+        intent.putExtra("alReceiver",setRec);
+        PendingIntent amIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+        am.set(AlarmManager.RTC_WAKEUP, calStart.getTimeInMillis(), amIntent);
+        Log.i(Tag, " 스케줄 시작 시간 :  "+calStart.getTimeInMillis());
+    }
+    public void amEndSet(Calendar calEnd, View v){
+        Log.i(Tag,"set Alarm End");
+        Context context = getApplicationContext();
+        am = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
+        Intent intent2 = new Intent(context, AlarmReceiver.class);
+        //종료시간
+        setRec=Boolean.FALSE;
+        intent2.putExtra("alReceiver",setRec);
+        PendingIntent amIntent2 = PendingIntent.getBroadcast(context, 1, intent2, PendingIntent.FLAG_CANCEL_CURRENT);
+        am.set(AlarmManager.RTC_WAKEUP, calEnd.getTimeInMillis(), amIntent2);
+        Log.i(Tag, " 스케줄 종료 시간 :  "+calEnd.getTimeInMillis());
+    }
+
 }

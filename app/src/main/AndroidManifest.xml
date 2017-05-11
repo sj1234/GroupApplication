@@ -68,6 +68,13 @@
 
         <activity android:name=".ScheduleActivity" />
         <activity android:name=".ScheduleSetActivity"></activity>
+        <receiver
+            android:name=".AlarmReceiver">
+            <intent-filter>
+                <action android:name="com.example.saran.realapplication.ALARM_START"/>
+            </intent-filter>
+        </receiver>
+
     </application>
 
 </manifest>

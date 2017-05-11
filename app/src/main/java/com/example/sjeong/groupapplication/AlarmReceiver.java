@@ -10,11 +10,11 @@ import android.os.Bundle;
 import android.util.Log;
 
 public class AlarmReceiver extends BroadcastReceiver{
-    private String Tag = "test Reciver1";
+    private String Tag = "test Receiver1";
 
 
     public void onReceive(Context context, Intent intent) {// 5월 4일 AVD 한 1초 뒤에 시작.
-        Log.i(Tag, "reset receiver start");
+        Log.i(Tag, "receiver start");
         Bundle extra = intent.getExtras();
         boolean setRec = intent.getBooleanExtra("alReceiver", Boolean.TRUE); // ※ True : defaultValue
         if(setRec) { // true일 때 setAlarm으로
@@ -24,11 +24,11 @@ public class AlarmReceiver extends BroadcastReceiver{
             NotificationManager notificationmanager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
             Notification.Builder builder = new Notification.Builder(context);
             builder.setSmallIcon(android.R.drawable.stat_notify_chat).setTicker("HETT").setWhen(System.currentTimeMillis())
-                    .setContentTitle("Set Alarm Changed").setContentText("Set")
+                    .setContentTitle("Start Alarm Changed").setContentText("Set")
                     .setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE).setContentIntent(p).setAutoCancel(true);
 
             notificationmanager.notify(1, builder.build());
-            Log.i(Tag, "set receiver finish");
+            Log.i(Tag, "Start receiver finish");
         }
         else if(!setRec){ // false일 때 resetAlarm.
             Intent i = new Intent(context, ScheduleSetActivity.class);
@@ -37,11 +37,11 @@ public class AlarmReceiver extends BroadcastReceiver{
             NotificationManager notificationmanager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
             Notification.Builder builder = new Notification.Builder(context);
             builder.setSmallIcon(android.R.drawable.stat_notify_chat).setTicker("HETT").setWhen(System.currentTimeMillis())
-                    .setContentTitle("Reset Alarm Changed").setContentText("Reset")
+                    .setContentTitle("End Alarm Changed").setContentText("Reset")
                     .setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE).setContentIntent(p).setAutoCancel(true);
 
             notificationmanager.notify(1, builder.build());
-            Log.i(Tag, "reset receiver finish");
+            Log.i(Tag, "End receiver finish");
         }
 
     }
