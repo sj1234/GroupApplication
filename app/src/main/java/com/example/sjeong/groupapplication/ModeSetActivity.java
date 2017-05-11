@@ -134,13 +134,13 @@ public class ModeSetActivity extends AppCompatActivity implements View.OnClickLi
                             public void onClick(DialogInterface dialog, int id) {
 
                                 startxt.setText(items1[id]);
-                                if(items1[id].equals("벨소리"))
+                                if (items1[id].equals("벨소리"))
                                     mode.setStar(1);
-                                else if(items1[id].equals("진동"))
+                                else if (items1[id].equals("진동"))
                                     mode.setStar(2);
-                                else if(items1[id].equals("무음"))
+                                else if (items1[id].equals("무음"))
                                     mode.setStar(3);
-                                else if(items1[id].equals("차단"))
+                                else if (items1[id].equals("차단"))
                                     mode.setStar(4);
 
                                 // 프로그램을 종료한다
@@ -164,13 +164,13 @@ public class ModeSetActivity extends AppCompatActivity implements View.OnClickLi
                             public void onClick(DialogInterface dialog, int id) {
 
                                 contacttxt.setText(items2[id]);
-                                if(items2[id].equals("벨소리"))
+                                if (items2[id].equals("벨소리"))
                                     mode.setContact(1);
-                                else if(items2[id].equals("진동"))
+                                else if (items2[id].equals("진동"))
                                     mode.setContact(2);
-                                else if(items2[id].equals("무음"))
+                                else if (items2[id].equals("무음"))
                                     mode.setContact(3);
-                                else if(items2[id].equals("차단"))
+                                else if (items2[id].equals("차단"))
                                     mode.setContact(4);
 
                                 // 프로그램을 종료한다
@@ -194,13 +194,13 @@ public class ModeSetActivity extends AppCompatActivity implements View.OnClickLi
                             public void onClick(DialogInterface dialog, int id) {
 
                                 unknowntxt.setText(items3[id]);
-                                if(items3[id].equals("벨소리"))
+                                if (items3[id].equals("벨소리"))
                                     mode.setUnknown(1);
-                                else if(items3[id].equals("진동"))
+                                else if (items3[id].equals("진동"))
                                     mode.setUnknown(2);
-                                else if(items3[id].equals("무음"))
+                                else if (items3[id].equals("무음"))
                                     mode.setUnknown(3);
-                                else if(items3[id].equals("차단"))
+                                else if (items3[id].equals("차단"))
                                     mode.setUnknown(4);
 
                                 // 프로그램을 종료한다
@@ -214,35 +214,34 @@ public class ModeSetActivity extends AppCompatActivity implements View.OnClickLi
                 alertDialog3.show();
                 break;
             case R.id.set:
-                if(name==null) {
-                    mode.setName(modename.getText().toString());
-                    dbManager.insertMode(mode);
-                }
-                else if(name.equals(preferences.getString("name", "null")))
-                {
-                    mode.setName(modename.getText().toString());
-                    dbManager.updateMode(name, mode);
+                mode.setName(modename.getText().toString());
+                if (mode.getName() != null && mode.getStar() > 0 && mode.getContact() > 0 && mode.getUnknown() > 0) {
+                    if (name == null)
+                        dbManager.insertMode(mode);
+                     else if (name.equals(preferences.getString("name", "null"))) {
+                        dbManager.updateMode(name, mode);
 
-                    SharedPreferences.Editor editor = preferences.edit();
-                    editor.putString("set", "on");
-                    editor.putString("name", mode.getName());
-                    editor.putInt("star", mode.getStar());
-                    editor.putInt("contact", mode.getContact());
-                    editor.putInt("unknown", mode.getUnknown());
-                    editor.putInt("time", mode.getTime());
-                    editor.putInt("count", mode.getCount());
-                    editor.commit();
+                        SharedPreferences.Editor editor = preferences.edit();
+                        editor.putString("set", "on");
+                        editor.putString("name", mode.getName());
+                        editor.putInt("star", mode.getStar());
+                        editor.putInt("contact", mode.getContact());
+                        editor.putInt("unknown", mode.getUnknown());
+                        editor.putInt("time", mode.getTime());
+                        editor.putInt("count", mode.getCount());
+                        editor.commit();
 
-                    Log.i(Tag, "Update Now Mode");
+                        Log.i(Tag, "Update Now Mode");
+                    } else
+                        dbManager.updateMode(name, mode);
+                    ModeSetActivity.this.finish();
                 }
-                else {
-                    mode.setName(modename.getText().toString());
-                    dbManager.updateMode(name, mode);
-                }
-                ModeSetActivity.this.finish();
+                else
+                    Toast.makeText(ModeSetActivity.this, "모든 내용을 입력하십시오", Toast.LENGTH_SHORT).show();
                 break;
             default:
                 break;
+
         }
     }
 
