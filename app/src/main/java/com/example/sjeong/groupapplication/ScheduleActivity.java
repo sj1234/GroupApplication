@@ -7,13 +7,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 
 import java.util.ArrayList;
 
 
 
-public class ScheduleActivity extends AppCompatActivity  {
+public class ScheduleActivity extends AppCompatActivity implements View.OnClickListener {
 
     private String Tag = "test ScheduleActivity";
     private AlarmManager am;
@@ -33,14 +34,18 @@ public class ScheduleActivity extends AppCompatActivity  {
             dbManager = new DBManager(ScheduleActivity.this, "AlarmCall", null, 1);
             dbManager.ReadDB();
         }
-        Button button = (Button)findViewById(R.id.makeschedule);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(ScheduleActivity.this, ScheduleSetActivity.class);
-                startActivity(intent);
-            }
-        });
+
+        Button make = (Button)findViewById(R.id.makeschedule);
+        ImageButton home = (ImageButton) findViewById(R.id.home_schedule);
+        ImageButton mode = (ImageButton) findViewById(R.id.mode_schedule);
+        ImageButton schedule= (ImageButton) findViewById(R.id.schedule_schedule);
+        ImageButton setting = (ImageButton) findViewById(R.id.setting_schedule);
+
+        make.setOnClickListener(this);
+        home.setOnClickListener(this);
+        mode.setOnClickListener(this);
+        schedule.setOnClickListener(this);
+        setting.setOnClickListener(this);
     }
 
 
@@ -64,15 +69,15 @@ public class ScheduleActivity extends AppCompatActivity  {
             switch (v.getId()) {
                 case R.id.scheduletime:
                     Log.i(Tag, "scheduleview "+position );
-                    //intent = new Intent(ScheduleActivity.this, ScheduleSetActivity.class);
-                    //intent.putExtra("Name", schedulename);
-                    //startActivity(intent);
+                    intent = new Intent(ScheduleActivity.this, ScheduleSetActivity.class);
+                    intent.putExtra("Position", position);
+                    startActivity(intent);
                     break;
                 case R.id.modename:
                     Log.i(Tag, "scheduleview "+position);
-                    //intent = new Intent(ScheduleActivity.this, ScheduleSetActivity.class);
-                    //intent.putExtra("Name", schedulename);
-                    //startActivity(intent);
+                    intent = new Intent(ScheduleActivity.this, ScheduleSetActivity.class);
+                    intent.putExtra("Position", position);
+                    startActivity(intent);
                     break;
                 case R.id.scheduleon:
                     Schedule schedule = dbManager.getSchedule(Integer.parseInt(position));
@@ -96,6 +101,38 @@ public class ScheduleActivity extends AppCompatActivity  {
             }
         }
     };
+
+    @Override
+    public void onClick(View v) {
+
+        Intent intent = null;
+
+        switch (v.getId()) {
+            case R.id.makeschedule:
+                intent = new Intent(ScheduleActivity.this, ScheduleSetActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.home_schedule:
+                intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
+                finish();
+                break;
+            case R.id.mode_schedule:
+                intent = new Intent(this, ModeActivity.class);
+                startActivity(intent);
+                finish();
+                break;
+            case R.id.schedule_schedule:
+                break;
+            case R.id.setting_schedule:
+                intent = new Intent(this, PrefSettingActivity.class);
+                startActivity(intent);
+                finish();
+                break;
+            default :
+                break;
+        }
+    }
 
     // 알람설정함수는 여기다가 만들어
     //publid void 알람설정set(){}

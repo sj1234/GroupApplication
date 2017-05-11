@@ -17,7 +17,9 @@ public class Schedule {
     private Boolean sat;
     private String modename;
     private String premodename;
+    private int id;
 
+    public int getId(){return id;};
 
     public String getStart() {
         return start;
@@ -58,6 +60,8 @@ public class Schedule {
     public String getModename() { return modename;}
 
     public String getPremodename() { return premodename;}
+
+    public void setId(int id){this.id = id;}
 
     public void setStart(String start){
         this.start = start;
