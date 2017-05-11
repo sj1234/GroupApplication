@@ -83,7 +83,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         if(preferences.getString("set", "off").equals("off")) {
             nowname.setText("현재 모드 : off");
-            nowname.setText("");
             nowstar.setText("");
             nowcontact.setText("");
             nowunknown.setText("");
