@@ -8,7 +8,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.preference.PreferenceFragment;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
     int z = 0;
@@ -84,6 +83,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         if(preferences.getString("set", "off").equals("off")) {
             nowname.setText("현재 모드 : off");
+            nowname.setText("");
+            nowstar.setText("");
+            nowcontact.setText("");
+            nowunknown.setText("");
+            nowtimecount.setText("");
             return ;
         }
         else{
