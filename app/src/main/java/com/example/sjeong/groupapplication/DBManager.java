@@ -81,7 +81,10 @@ public class DBManager extends SQLiteOpenHelper {
     public void deleteMode(String modename){
         SQLiteDatabase db  = getWritableDatabase();
         String deletemode = "DELETE FROM MODE WHERE NAME = ?;";
+        String deleteschedule = "DELETE FROM SCHEDULE WHERE MODENAME = ?;";
+
         db.execSQL(deletemode, new Object[]{modename});
+        db.execSQL(deleteschedule, new Object[]{modename});
         Log.i("test DB", "delete mode"+modename);
     }
 

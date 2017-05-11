@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -109,8 +110,12 @@ public class ScheduleActivity extends AppCompatActivity implements View.OnClickL
 
         switch (v.getId()) {
             case R.id.makeschedule:
-                intent = new Intent(ScheduleActivity.this, ScheduleSetActivity.class);
-                startActivity(intent);
+                if(dbManager.getModesName().size()==0)
+                    Toast.makeText(ScheduleActivity.this, "모드를 생성하십시오", Toast.LENGTH_SHORT).show();
+                else {
+                    intent = new Intent(ScheduleActivity.this, ScheduleSetActivity.class);
+                    startActivity(intent);
+                }
                 break;
             case R.id.home_schedule:
                 intent = new Intent(this, MainActivity.class);
