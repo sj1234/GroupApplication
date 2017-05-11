@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setting.setOnClickListener(this);
 
 
-        SharedPreferences preferences = getSharedPreferences("Later", Activity.MODE_PRIVATE);
+      /* SharedPreferences preferences = getSharedPreferences("Later", Activity.MODE_PRIVATE);
         Switch switchlater = (Switch) findViewById(R.id.later);
         switchlater.setChecked(preferences.getString("onoff", "off").equals("on"));
         switchlater.setText("나중에 알림");
@@ -53,8 +53,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 editor.commit();
             }
-        });
+        });*/
     }
+
 
 
     @Override
