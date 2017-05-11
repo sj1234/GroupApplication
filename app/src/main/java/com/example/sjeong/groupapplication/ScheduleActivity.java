@@ -87,6 +87,8 @@ public class ScheduleActivity extends AppCompatActivity implements View.OnClickL
                     Schedule schedule = dbManager.getSchedule(Integer.parseInt(position));
                     String starttime = schedule.getStart().toString();
                     String endtime = schedule.getEnd().toString();
+                    String chgMode = schedule.getModename();
+                    String orgMode = schedule.getPremodename();
 
                     String[] start = starttime.split(":");
                     String[] end = endtime.split(":");
@@ -105,8 +107,8 @@ public class ScheduleActivity extends AppCompatActivity implements View.OnClickL
                     Log.i(Tag, " onbutton setting 시간 "+starttimeHOUR+"  setting 분" +starttimeMINUTE);
                     calEnd.set(calEnd.get(calEnd.YEAR), calEnd.get(calEnd.MONTH) , calEnd.get(calEnd.DATE), endtimeHOUR, endtimeMINUTE);
                     Log.i(Tag, " onbutton setting 시간 :  "+endtimeHOUR+"  setting 분 : " +endtimeMINUTE);
-                    amStartSet(calStart,v);
-                    amEndSet(calEnd,v);
+                    amStartSet(calStart,v,chgMode);
+                    amEndSet(calEnd,v,orgMode);
                     break;
 
                 case R.id.scheduleoff:
@@ -158,7 +160,7 @@ public class ScheduleActivity extends AppCompatActivity implements View.OnClickL
 
     // 알람설정함수는 여기다가 만들어
     //publid void 알람설정set(){}
-    public void amStartSet(Calendar calStart, View v){
+    public void amStartSet(Calendar calStart, View v,String chgMode){ // 시작 스케줄 알람
         Log.i(Tag,"set Alarm Start");
         Context context = getApplicationContext();
         am = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
@@ -166,11 +168,12 @@ public class ScheduleActivity extends AppCompatActivity implements View.OnClickL
         // 시작시간
         setRec=Boolean.TRUE;
         intent.putExtra("alReceiver",setRec);
+        intent.putExtra("change mode",chgMode);
         PendingIntent amIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
         am.set(AlarmManager.RTC_WAKEUP, calStart.getTimeInMillis(), amIntent);
         Log.i(Tag, " 스케줄 시작 시간 :  "+calStart.getTimeInMillis());
     }
-    public void amEndSet(Calendar calEnd, View v){
+    public void amEndSet(Calendar calEnd, View v, String orgMode){ // 종료 스케줄 알람
         Log.i(Tag,"set Alarm End");
         Context context = getApplicationContext();
         am = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
@@ -178,6 +181,7 @@ public class ScheduleActivity extends AppCompatActivity implements View.OnClickL
         //종료시간
         setRec=Boolean.FALSE;
         intent2.putExtra("alReceiver",setRec);
+        intent2.putExtra("original mode",orgMode);
         PendingIntent amIntent2 = PendingIntent.getBroadcast(context, 1, intent2, PendingIntent.FLAG_CANCEL_CURRENT);
         am.set(AlarmManager.RTC_WAKEUP, calEnd.getTimeInMillis(), amIntent2);
         Log.i(Tag, " 스케줄 종료 시간 :  "+calEnd.getTimeInMillis());

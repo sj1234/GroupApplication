@@ -13,31 +13,35 @@ public class AlarmReceiver extends BroadcastReceiver{
     private String Tag = "test Receiver1";
 
 
-    public void onReceive(Context context, Intent intent) {// 5월 4일 AVD 한 1초 뒤에 시작.
+    public void onReceive(Context context, Intent intent) {
         Log.i(Tag, "receiver start");
         Bundle extra = intent.getExtras();
         boolean setRec = intent.getBooleanExtra("alReceiver", Boolean.TRUE); // ※ True : defaultValue
-        if(setRec) { // true일 때 setAlarm으로
+        String chgMode = intent.getStringExtra("change mode"); // 바꿀 모드 불러옴
+        String orgMode = intent.getStringExtra("original mode"); // 기존 모드 불러옴
+        if(setRec) { // true일 때 시작 스케줄
             Intent i = new Intent(context,ScheduleSetActivity.class);
             PendingIntent p = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
-            //if (week[cal.get(Calendar.DAY_OF_WEEK)]) {
+            // 여기에 바꿀 모드 chgMode를 넣으면 됩니다.
+            Log.i(Tag, "changing to " + chgMode);
             NotificationManager notificationmanager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
             Notification.Builder builder = new Notification.Builder(context);
             builder.setSmallIcon(android.R.drawable.stat_notify_chat).setTicker("HETT").setWhen(System.currentTimeMillis())
-                    .setContentTitle("Start Alarm Changed").setContentText("Set")
+                    .setContentTitle("Schedule starts").setContentText("change mode")
                     .setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE).setContentIntent(p).setAutoCancel(true);
 
             notificationmanager.notify(1, builder.build());
             Log.i(Tag, "Start receiver finish");
         }
-        else if(!setRec){ // false일 때 resetAlarm.
+        else if(!setRec){ // false일 때 종료 스케줄
             Intent i = new Intent(context, ScheduleSetActivity.class);
             PendingIntent p = PendingIntent.getBroadcast(context, 1, intent, PendingIntent.FLAG_CANCEL_CURRENT);
-            //if (week[cal.get(Calendar.DAY_OF_WEEK)]) {
+            // 여기에 기존 모드 orgMode를 넣으면 됩니다.
+            Log.i(Tag, "back to " + orgMode);
             NotificationManager notificationmanager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
             Notification.Builder builder = new Notification.Builder(context);
             builder.setSmallIcon(android.R.drawable.stat_notify_chat).setTicker("HETT").setWhen(System.currentTimeMillis())
-                    .setContentTitle("End Alarm Changed").setContentText("Reset")
+                    .setContentTitle("Schedule ends").setContentText("back to original mode")
                     .setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE).setContentIntent(p).setAutoCancel(true);
 
             notificationmanager.notify(1, builder.build());
