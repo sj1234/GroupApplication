@@ -6,6 +6,7 @@
 
 
 
+
     <!-- 설정를 구성하는 Layout XML -->
     <!-- @author croute -->
     <!-- @since 2011.02.25 -->
@@ -55,6 +56,11 @@
         android:key="back"
         android:title="HOME"
         android:selectable="true" />
+    <intent
+        android:action="MainActivity"
+        android:targetPackage="com.example.coding1.sjeong.groupapplication"
+        android:targetClass=".MainActivity" />
+
 
 
 </PreferenceScreen>

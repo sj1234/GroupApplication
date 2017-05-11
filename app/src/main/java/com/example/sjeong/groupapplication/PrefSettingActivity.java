@@ -80,7 +80,8 @@ public class PrefSettingActivity extends PreferenceActivity implements OnPrefere
             pBack.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
-
+                    Intent i = new Intent("com.example.sjeong.groupapplication.MainActivity");
+                    startActivity(i);
                     return false;
                 }
             });
