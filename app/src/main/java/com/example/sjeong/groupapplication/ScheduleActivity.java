@@ -1,9 +1,11 @@
 package com.example.sjeong.groupapplication;
 
+import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -88,7 +90,20 @@ public class ScheduleActivity extends AppCompatActivity implements View.OnClickL
                     String starttime = schedule.getStart().toString();
                     String endtime = schedule.getEnd().toString();
                     String chgMode = schedule.getModename();
-                    String orgMode = schedule.getPremodename();
+                    String orgMode;
+
+                    // Premode
+                    SharedPreferences preferences = getSharedPreferences("Mode", Activity.MODE_PRIVATE);
+                    if(preferences.getString("set", "off").equals("off")) {
+                        orgMode = null;
+                        schedule.setPremodename(orgMode);
+                        dbManager.updateSchedule(schedule);
+                    }
+                    else {
+                        orgMode =  preferences.getString("name", "null");
+                        schedule.setPremodename(orgMode);
+                        dbManager.updateSchedule(schedule);
+                    }
 
                     String[] start = starttime.split(":");
                     String[] end = endtime.split(":");
@@ -160,8 +175,7 @@ public class ScheduleActivity extends AppCompatActivity implements View.OnClickL
         }
     }
 
-    // 알람설정함수는 여기다가 만들어
-    //publid void 알람설정set(){}
+    // 알람설정함수
     public void amStartSet(Calendar calStart, View v,String chgMode){ // 시작 스케줄 알람
         Log.i(Tag,"set Alarm Start");
         Context context = getApplicationContext();

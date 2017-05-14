@@ -141,8 +141,20 @@ public class ModeActivity extends AppCompatActivity implements View.OnClickListe
                 case R.id.delete:
                     Log.i("test tag", modename);
                     SharedPreferences preferences= context.getSharedPreferences("Mode", Activity.MODE_PRIVATE);
-                    if(preferences.getString("name", "null").equals(modename))
-                        Toast.makeText(context, "현재 모드라 삭제 불가능 합니다.", Toast.LENGTH_SHORT).show();
+                    if(preferences.getString("name", "null").equals(modename)) {
+                        if(preferences.getString("set", "off").equals("off")){
+                            dbManager.deleteMode(modename);
+
+                            SharedPreferences.Editor editor = preferences.edit();
+                            editor.putString("name", "null");
+                            editor.commit();
+
+                            Toast.makeText(context, "삭제 완료", Toast.LENGTH_SHORT).show();
+                            onResume();
+                        }
+                        else
+                            Toast.makeText(context, "현재 모드라 삭제 불가능 합니다.", Toast.LENGTH_SHORT).show();
+                    }
                     else{
                         dbManager.deleteMode(modename);
                         Toast.makeText(context, "삭제 완료", Toast.LENGTH_SHORT).show();

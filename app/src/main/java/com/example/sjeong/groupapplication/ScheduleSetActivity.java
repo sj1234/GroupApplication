@@ -135,17 +135,17 @@ public class ScheduleSetActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 if (schedule.getModename() != null && schedule.getStart() != null && schedule.getEnd() != null) {
-                    schedule.setMon(false);
-                    schedule.setTue(false);
-                    schedule.setWed(false);
-                    schedule.setThu(false);
-                    schedule.setFri(false);
-                    schedule.setSat(false);
-                    schedule.setSun(false);
+                    schedule.setMon(0);
+                    schedule.setTue(0);
+                    schedule.setWed(0);
+                    schedule.setThu(0);
+                    schedule.setFri(0);
+                    schedule.setSat(0);
+                    schedule.setSun(0);
 
                     if(position!=null) {
                         Toast.makeText(ScheduleSetActivity.this, "저장 "+schedule.getId(), Toast.LENGTH_SHORT).show();
-                        dbManager.updateSchedule(schedule.getId(), schedule);
+                        dbManager.updateSchedule(schedule);
                     }
                     else {
                         Toast.makeText(ScheduleSetActivity.this, "저장", Toast.LENGTH_SHORT).show();
