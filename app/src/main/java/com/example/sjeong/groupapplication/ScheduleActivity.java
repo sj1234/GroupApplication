@@ -91,6 +91,8 @@ public class ScheduleActivity extends AppCompatActivity implements View.OnClickL
                     String endtime = schedule.getEnd().toString();
                     String chgMode = schedule.getModename();
                     String orgMode;
+                    int i = schedule.getId();
+                    Log.i(Tag, "on schedule Id is "+i);
 
                     // Premode
                     SharedPreferences preferences = getSharedPreferences("Mode", Activity.MODE_PRIVATE);
@@ -124,8 +126,8 @@ public class ScheduleActivity extends AppCompatActivity implements View.OnClickL
                     calEnd.set(calEnd.get(calEnd.YEAR), calEnd.get(calEnd.MONTH) , calEnd.get(calEnd.DATE), endtimeHOUR, endtimeMINUTE,0);
                     Log.i(Tag, " onbutton setting 시간 :  "+endtimeHOUR+"  setting 분 : " +endtimeMINUTE);
                     Log.i(Tag, " 스케줄 종료 시간 :  "+calEnd.getTime());
-                    amStartSet(calStart,v,chgMode);
-                    amEndSet(calEnd,v,orgMode);
+                    amStartSet(calStart,v,chgMode,2*i);
+                    amEndSet(calEnd,v,orgMode,(2*i)+1);
                     break;
 
                 case R.id.scheduleoff:
@@ -134,6 +136,9 @@ public class ScheduleActivity extends AppCompatActivity implements View.OnClickL
                     Schedule scheduleoff = dbManager.getSchedule(Integer.parseInt(position));
                     String starttimeoff = scheduleoff.getStart().toString();
                     String endtimeoff = scheduleoff.getEnd().toString();
+                    int ioff = scheduleoff.getId();
+                    Log.i(Tag, "off schedule Id is "+ioff);
+
                     String[] startoff = starttimeoff.split(":");
                     String[] endoff = endtimeoff.split(":");
 
@@ -153,8 +158,8 @@ public class ScheduleActivity extends AppCompatActivity implements View.OnClickL
                     calEndoff.set(calEndoff.get(calEndoff.YEAR), calEndoff.get(calEndoff.MONTH) , calEndoff.get(calEndoff.DATE), endtimeHOURoff, endtimeMINUTEoff,0);
                     Log.i(Tag, " onbutton setting 시간 :  "+endtimeHOURoff+"  setting 분 : " +endtimeMINUTEoff);
                     Log.i(Tag, " 스케줄 종료 시간 :  "+calEndoff.getTime());
-                    amstartClear(calStartoff,v);
-                    amendClear(calEndoff,v);
+                    amstartClear(calStartoff,v,2*ioff);
+                    amendClear(calEndoff,v,(2*ioff)+1);
                     break;
                 default:
                     break;
@@ -200,7 +205,7 @@ public class ScheduleActivity extends AppCompatActivity implements View.OnClickL
     }
 
     // 알람설정함수
-    public void amStartSet(Calendar calStart, View v,String chgMode){ // 시작 스케줄 알람
+    public void amStartSet(Calendar calStart, View v,String chgMode,int i){ // 시작 스케줄 알람
         Log.i(Tag,"set Alarm Start");
         Context context = getApplicationContext();
         am = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
@@ -209,11 +214,12 @@ public class ScheduleActivity extends AppCompatActivity implements View.OnClickL
         setRec=Boolean.TRUE;
         intent.putExtra("alReceiver",setRec);
         intent.putExtra("change mode",chgMode);
-        PendingIntent amIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        Log.i(Tag, "alarmStart request code is "+i);
+        PendingIntent amIntent = PendingIntent.getBroadcast(context, i, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         am.set(AlarmManager.RTC_WAKEUP, calStart.getTimeInMillis(), amIntent);
         Log.i(Tag, " 스케줄 시작 시간 :  "+calStart.getTimeInMillis());
     }
-    public void amEndSet(Calendar calEnd, View v, String orgMode){ // 종료 스케줄 알람
+    public void amEndSet(Calendar calEnd, View v, String orgMode, int i){ // 종료 스케줄 알람
         Log.i(Tag,"set Alarm End");
         Context context = getApplicationContext();
         am = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
@@ -222,12 +228,13 @@ public class ScheduleActivity extends AppCompatActivity implements View.OnClickL
         setRec=Boolean.FALSE;
         intent2.putExtra("alReceiver",setRec);
         intent2.putExtra("original mode",orgMode);
-        PendingIntent amIntent2 = PendingIntent.getBroadcast(context, 1, intent2, PendingIntent.FLAG_UPDATE_CURRENT);
+        Log.i(Tag, "alarmEnd request code is "+i);
+        PendingIntent amIntent2 = PendingIntent.getBroadcast(context, i, intent2, PendingIntent.FLAG_UPDATE_CURRENT);
         am.set(AlarmManager.RTC_WAKEUP, calEnd.getTimeInMillis(), amIntent2);
         Log.i(Tag, " 스케줄 종료 시간 :  "+calEnd.getTimeInMillis());
     }
 
-    public void amstartClear(Calendar calStartoff, View v){
+    public void amstartClear(Calendar calStartoff, View v,int ioff){
        /*
         if(amIntent == null){
             Log.i(Tag, "There is no alarm");
@@ -239,19 +246,21 @@ public class ScheduleActivity extends AppCompatActivity implements View.OnClickL
             Intent intent = new Intent(context,AlarmReceiver.class);
             setRec=Boolean.TRUE;
             intent.putExtra("alReceiver",setRec);
+            Log.i(Tag, "clearStart request code is "+ioff);
             am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-            PendingIntent amIntent = PendingIntent.getBroadcast(context,0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
+            PendingIntent amIntent = PendingIntent.getBroadcast(context,ioff,intent,PendingIntent.FLAG_UPDATE_CURRENT);
             am.cancel(amIntent);
             Log.i(Tag, "Clear Alarm"); //}
         }
 
-        public void amendClear(Calendar calendoff,View v){
+        public void amendClear(Calendar calendoff,View v,int ioff){
             Context context = getApplicationContext();
             Intent intent = new Intent(context,AlarmReceiver.class);
             setRec=Boolean.FALSE;
             intent.putExtra("alReceiver",setRec);
+            Log.i(Tag, "clearEnd request code is "+ioff);
             am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-            PendingIntent amIntent = PendingIntent.getBroadcast(context,1,intent,PendingIntent.FLAG_UPDATE_CURRENT);
+            PendingIntent amIntent = PendingIntent.getBroadcast(context,ioff,intent,PendingIntent.FLAG_UPDATE_CURRENT);
             am.cancel(amIntent);
             Log.i(Tag, "Clear Alarm");
         }
