@@ -131,6 +131,30 @@ public class ScheduleActivity extends AppCompatActivity implements View.OnClickL
                 case R.id.scheduleoff:
                     Log.i(Tag, "schedule off "+position);
                     // 종료하는건 아직 안했어
+                    Schedule scheduleoff = dbManager.getSchedule(Integer.parseInt(position));
+                    String starttimeoff = scheduleoff.getStart().toString();
+                    String endtimeoff = scheduleoff.getEnd().toString();
+                    String[] startoff = starttimeoff.split(":");
+                    String[] endoff = endtimeoff.split(":");
+
+                    Log.i(Tag, "schedule on "+startoff[0]+"시 "+startoff[1]+"분 부터 "+endoff[0]+"시 "+endoff[1]+"분 까지");
+                    // start[0] : 시작시간의 시간  / start[1] : 시작시간의 분 / end[0] : 종료시간의 시간 / end[1] : 종료시간의 분
+                    // 여기에서 알람설정함수 부르면 될것같아
+
+                    Calendar calStartoff = Calendar.getInstance();
+                    Calendar calEndoff = Calendar.getInstance();
+                    int starttimeHOURoff = Integer.parseInt(startoff[0]);
+                    int starttimeMINUTEoff = Integer.parseInt(startoff[1]);
+                    int endtimeHOURoff = Integer.parseInt(endoff[0]);
+                    int endtimeMINUTEoff = Integer.parseInt(endoff[1]);
+                    calStartoff.set(calStartoff.get(calStartoff.YEAR), calStartoff.get(calStartoff.MONTH) , calStartoff.get(calStartoff.DATE), starttimeHOURoff, starttimeMINUTEoff,0);
+                    Log.i(Tag, " onbutton setting 시간 "+starttimeHOURoff+"  setting 분" +starttimeMINUTEoff);
+                    Log.i(Tag, " 스케줄 시작 시간 :  "+calStartoff.getTime());
+                    calEndoff.set(calEndoff.get(calEndoff.YEAR), calEndoff.get(calEndoff.MONTH) , calEndoff.get(calEndoff.DATE), endtimeHOURoff, endtimeMINUTEoff,0);
+                    Log.i(Tag, " onbutton setting 시간 :  "+endtimeHOURoff+"  setting 분 : " +endtimeMINUTEoff);
+                    Log.i(Tag, " 스케줄 종료 시간 :  "+calEndoff.getTime());
+                    amstartClear(calStartoff,v);
+                    amendClear(calEndoff,v);
                     break;
                 default:
                     break;
@@ -185,7 +209,7 @@ public class ScheduleActivity extends AppCompatActivity implements View.OnClickL
         setRec=Boolean.TRUE;
         intent.putExtra("alReceiver",setRec);
         intent.putExtra("change mode",chgMode);
-        PendingIntent amIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+        PendingIntent amIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         am.set(AlarmManager.RTC_WAKEUP, calStart.getTimeInMillis(), amIntent);
         Log.i(Tag, " 스케줄 시작 시간 :  "+calStart.getTimeInMillis());
     }
@@ -198,9 +222,39 @@ public class ScheduleActivity extends AppCompatActivity implements View.OnClickL
         setRec=Boolean.FALSE;
         intent2.putExtra("alReceiver",setRec);
         intent2.putExtra("original mode",orgMode);
-        PendingIntent amIntent2 = PendingIntent.getBroadcast(context, 1, intent2, PendingIntent.FLAG_CANCEL_CURRENT);
+        PendingIntent amIntent2 = PendingIntent.getBroadcast(context, 1, intent2, PendingIntent.FLAG_UPDATE_CURRENT);
         am.set(AlarmManager.RTC_WAKEUP, calEnd.getTimeInMillis(), amIntent2);
         Log.i(Tag, " 스케줄 종료 시간 :  "+calEnd.getTimeInMillis());
     }
+
+    public void amstartClear(Calendar calStartoff, View v){
+       /*
+        if(amIntent == null){
+            Log.i(Tag, "There is no alarm");
+            Toast.makeText(getApplicationContext(), "There is no alarm " , Toast.LENGTH_SHORT).show();
+        }
+        */
+        //else {
+            Context context = getApplicationContext();
+            Intent intent = new Intent(context,AlarmReceiver.class);
+            setRec=Boolean.TRUE;
+            intent.putExtra("alReceiver",setRec);
+            am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+            PendingIntent amIntent = PendingIntent.getBroadcast(context,0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
+            am.cancel(amIntent);
+            Log.i(Tag, "Clear Alarm"); //}
+        }
+
+        public void amendClear(Calendar calendoff,View v){
+            Context context = getApplicationContext();
+            Intent intent = new Intent(context,AlarmReceiver.class);
+            setRec=Boolean.FALSE;
+            intent.putExtra("alReceiver",setRec);
+            am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+            PendingIntent amIntent = PendingIntent.getBroadcast(context,1,intent,PendingIntent.FLAG_UPDATE_CURRENT);
+            am.cancel(amIntent);
+            Log.i(Tag, "Clear Alarm");
+        }
+
 
 }
