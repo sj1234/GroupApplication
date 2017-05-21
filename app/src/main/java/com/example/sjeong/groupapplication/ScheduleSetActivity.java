@@ -24,7 +24,7 @@ import java.util.Calendar;
 
 public class ScheduleSetActivity extends AppCompatActivity {
 
-    private String Tag = "test ScheduleSetActivity";
+    private String Tag1 = "test ScheduleSetActivity";
     private ToggleButton toggleSun,toggleMon,toggleTue,toggleWed,toggleThu,toggleFri,toggleSat;
     private Switch aSwitch;
     private DBManager dbManager;
@@ -135,13 +135,13 @@ public class ScheduleSetActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 if (schedule.getModename() != null && schedule.getStart() != null && schedule.getEnd() != null) {
-                    schedule.setMon(0);
-                    schedule.setTue(0);
-                    schedule.setWed(0);
-                    schedule.setThu(0);
-                    schedule.setFri(0);
-                    schedule.setSat(0);
-                    schedule.setSun(0);
+                    schedule.setMon(toggleMon.isChecked());
+                    schedule.setTue(toggleTue.isChecked());
+                    schedule.setWed(toggleWed.isChecked());
+                    schedule.setThu(toggleThu.isChecked());
+                    schedule.setFri(toggleFri.isChecked());
+                    schedule.setSat(toggleSat.isChecked());
+                    schedule.setSun(toggleSun.isChecked());
 
                     if(position!=null) {
                         Toast.makeText(ScheduleSetActivity.this, "저장 "+schedule.getId(), Toast.LENGTH_SHORT).show();
