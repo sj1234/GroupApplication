@@ -8,13 +8,13 @@ public class Schedule {
 
     private String start;
     private String end;
-    private Boolean sun;
-    private Boolean mon;
-    private Boolean tue;
-    private Boolean wed;
-    private Boolean thu;
-    private Boolean fri;
-    private Boolean sat;
+    private int sun;
+    private int mon;
+    private int tue;
+    private int wed;
+    private int thu;
+    private int fri;
+    private int sat;
     private String modename;
     private String premodename;
     private int id;
@@ -35,59 +35,59 @@ public class Schedule {
         this.end = end;
     }
 
-    public Boolean getSun() {
+    public int getSun() {
         return sun;
     }
 
-    public void setSun(Boolean sun) {
+    public void setSun(int sun) {
         this.sun = sun;
     }
 
-    public Boolean getMon() {
+    public int getMon() {
         return mon;
     }
 
-    public void setMon(Boolean mon) {
+    public void setMon(int mon) {
         this.mon = mon;
     }
 
-    public Boolean getTue() {
+    public int getTue() {
         return tue;
     }
 
-    public void setTue(Boolean tue) {
+    public void setTue(int tue) {
         this.tue = tue;
     }
 
-    public Boolean getWed() {
+    public int getWed() {
         return wed;
     }
 
-    public void setWed(Boolean wed) {
+    public void setWed(int wed) {
         this.wed = wed;
     }
 
-    public Boolean getThu() {
+    public int getThu() {
         return thu;
     }
 
-    public void setThu(Boolean thu) {
+    public void setThu(int thu) {
         this.thu = thu;
     }
 
-    public Boolean getFri() {
+    public int getFri() {
         return fri;
     }
 
-    public void setFri(Boolean fri) {
+    public void setFri(int fri) {
         this.fri = fri;
     }
 
-    public Boolean getSat() {
+    public int getSat() {
         return sat;
     }
 
-    public void setSat(Boolean sat) {
+    public void setSat(int sat) {
         this.sat = sat;
     }
 

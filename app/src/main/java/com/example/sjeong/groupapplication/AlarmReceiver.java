@@ -11,6 +11,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 
+import java.util.Calendar;
+
 public class AlarmReceiver extends BroadcastReceiver{
     private String Tag = "test Receiver1";
     private DBManager dbManager;
@@ -25,6 +27,22 @@ public class AlarmReceiver extends BroadcastReceiver{
 
         Log.i(Tag, "receiver start");
         Bundle extra = intent.getExtras();
+        int[] week = intent.getIntArrayExtra("weekday");
+        Log.i("AlarmReceiver.java | onReceive", "|일 : " + week[Calendar.SUNDAY]); //Calendar.SUNDAY == 1
+        Log.i("AlarmReceiver.java | onReceive", "|월 : " + week[Calendar.MONDAY]);
+        Log.i("AlarmReceiver.java | onReceive", "|화 : " + week[Calendar.TUESDAY]);
+        Log.i("AlarmReceiver.java | onReceive", "|수 : " + week[Calendar.WEDNESDAY]);
+        Log.i("AlarmReceiver.java | onReceive", "|목 : " + week[Calendar.THURSDAY]);
+        Log.i("AlarmReceiver.java | onReceive", "|금 : " + week[Calendar.FRIDAY]);
+        Log.i("AlarmReceiver.java | onReceive", "|토 : " + week[Calendar.SATURDAY]);
+
+        Calendar cal = Calendar.getInstance();
+        Log.i("AlarmReceiver.java | onReceive", "|" + cal.get(Calendar.DAY_OF_WEEK) + "|");
+        // 해당 요일이 아니면 리턴한다.
+
+        if (week[cal.get(Calendar.DAY_OF_WEEK)]==0)
+            return;
+
         boolean setRec = intent.getBooleanExtra("alReceiver", Boolean.TRUE); // ※ True : defaultValue
         String chgMode = intent.getStringExtra("change mode"); // 바꿀 모드 불러옴
         String orgMode = intent.getStringExtra("original mode"); // 기존 모드 불러옴

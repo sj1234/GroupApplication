@@ -91,8 +91,8 @@ public class ScheduleActivity extends AppCompatActivity implements View.OnClickL
                     String endtime = schedule.getEnd().toString();
                     String chgMode = schedule.getModename();
                     String orgMode;
-                    //sunday = 1이라서 0의 자리에 false.
-                    boolean[] week = { false, schedule.getSun(), schedule.getMon(),schedule.getTue(),schedule.getWed(),schedule.getThu(),schedule.getFri(),schedule.getSat() }; // sunday=1 이라서 0의 자리에는 아무 값이나 넣었음
+                    //sunday = 1이라서 0의 자리에 0
+                    int[] week = { 0, schedule.getSun(), schedule.getMon(),schedule.getTue(),schedule.getWed(),schedule.getThu(),schedule.getFri(),schedule.getSat() }; // sunday=1 이라서 0의 자리에는 아무 값이나 넣었음
                     int i = schedule.getId();
                     Log.i(Tag, "on schedule Id is "+i);
 
@@ -130,8 +130,8 @@ public class ScheduleActivity extends AppCompatActivity implements View.OnClickL
                     calEnd.set(calEnd.get(Calendar.YEAR), calEnd.get(Calendar.MONTH) , calEnd.get(Calendar.DATE), endtimeHOUR, endtimeMINUTE,0);
                     Log.i(Tag, " onbutton setting 시간 :  "+endtimeHOUR+"  setting 분 : " +endtimeMINUTE);
                     Log.i(Tag, " 스케줄 종료 시간 :  "+calEnd.getTimeInMillis());
-                    amStartSet(calStart,v,chgMode,startReq);
-                    amEndSet(calEnd,v,orgMode,endReq);
+                    amStartSet(calStart,v,chgMode,startReq,week);
+                    amEndSet(calEnd,v,orgMode,endReq,week);
                     break;
 
                 case R.id.scheduleoff:
@@ -141,7 +141,7 @@ public class ScheduleActivity extends AppCompatActivity implements View.OnClickL
                     String starttimeoff = scheduleoff.getStart().toString();
                     String endtimeoff = scheduleoff.getEnd().toString();
                     //sunday = 1이라서 0의 자리에 false.
-                    boolean[] weekoff = { false, scheduleoff.getSun(), scheduleoff.getMon(),scheduleoff.getTue(),scheduleoff.getWed(),scheduleoff.getThu(),scheduleoff.getFri(),scheduleoff.getSat() }; // sunday=1 이라서 0의 자리에는 아무 값이나 넣었음
+                    int[] weekoff = { 0, scheduleoff.getSun(), scheduleoff.getMon(),scheduleoff.getTue(),scheduleoff.getWed(),scheduleoff.getThu(),scheduleoff.getFri(),scheduleoff.getSat() }; // sunday=1 이라서 0의 자리에는 아무 값이나 넣었음
                     int ioff = scheduleoff.getId();
                     Log.i(Tag, "off schedule Id is "+ioff);
 
@@ -211,7 +211,7 @@ public class ScheduleActivity extends AppCompatActivity implements View.OnClickL
     }
 
     // 알람설정함수
-    public void amStartSet(Calendar calStart, View v,String chgMode,int i){ // 시작 스케줄 알람
+    public void amStartSet(Calendar calStart, View v,String chgMode,int i,int[] week){ // 시작 스케줄 알람
         Log.i(Tag,"set Alarm Start");
         Context context = getApplicationContext();
         am = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
@@ -220,12 +220,13 @@ public class ScheduleActivity extends AppCompatActivity implements View.OnClickL
         setRec=Boolean.TRUE;
         intent.putExtra("alReceiver",setRec);
         intent.putExtra("change mode",chgMode);
+        intent.putExtra("weekday",week);
         Log.i(Tag, "alarmStart request code is "+i);
         PendingIntent amIntent = PendingIntent.getBroadcast(context, i, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-        am.set(AlarmManager.RTC_WAKEUP, calStart.getTimeInMillis(),amIntent);
+        am.setRepeating(AlarmManager.RTC_WAKEUP, calStart.getTimeInMillis(),24*60*60*1000,amIntent);
         Log.i(Tag, " 스케줄 시작 시간 :  "+calStart.getTimeInMillis());
     }
-    public void amEndSet(Calendar calEnd, View v, String orgMode, int i){ // 종료 스케줄 알람
+    public void amEndSet(Calendar calEnd, View v, String orgMode, int i,int[] week){ // 종료 스케줄 알람
         Log.i(Tag,"set Alarm End");
         Context context = getApplicationContext();
         am = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
@@ -234,6 +235,7 @@ public class ScheduleActivity extends AppCompatActivity implements View.OnClickL
         setRec=Boolean.FALSE;
         intent2.putExtra("alReceiver",setRec);
         intent2.putExtra("original mode",orgMode);
+        intent2.putExtra("weekday",week);
         Log.i(Tag, "alarmEnd request code is "+i);
         PendingIntent amIntent2 = PendingIntent.getBroadcast(context, i, intent2, PendingIntent.FLAG_UPDATE_CURRENT);
         am.setExact(AlarmManager.RTC_WAKEUP, calEnd.getTimeInMillis(), amIntent2);

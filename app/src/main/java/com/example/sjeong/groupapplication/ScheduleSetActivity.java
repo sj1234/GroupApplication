@@ -135,13 +135,6 @@ public class ScheduleSetActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 if (schedule.getModename() != null && schedule.getStart() != null && schedule.getEnd() != null) {
-                    schedule.setMon(toggleMon.isChecked());
-                    schedule.setTue(toggleTue.isChecked());
-                    schedule.setWed(toggleWed.isChecked());
-                    schedule.setThu(toggleThu.isChecked());
-                    schedule.setFri(toggleFri.isChecked());
-                    schedule.setSat(toggleSat.isChecked());
-                    schedule.setSun(toggleSun.isChecked());
 
                     if(position!=null) {
                         Toast.makeText(ScheduleSetActivity.this, "저장 "+schedule.getId(), Toast.LENGTH_SHORT).show();
@@ -158,7 +151,58 @@ public class ScheduleSetActivity extends AppCompatActivity {
                     Toast.makeText(ScheduleSetActivity.this, "모든 내용을 입력하십시오", Toast.LENGTH_SHORT).show();
             }
         });
+
+        toggleSun.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){schedule.setSun(1);}
+                else{schedule.setSun(0);}
+            }
+        });
+        toggleMon.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){schedule.setMon(1);}
+                else{schedule.setMon(0);}
+            }
+        });
+        toggleTue.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){schedule.setTue(1);}
+                else{schedule.setTue(0);}
+            }
+        });
+        toggleWed.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){schedule.setWed(1);}
+                else{schedule.setWed(0);}
+            }
+        });
+        toggleThu.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){schedule.setThu(1);}
+                else{schedule.setThu(0);}
+            }
+        });
+        toggleFri.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){schedule.setFri(1);}
+                else{schedule.setFri(0);}
+            }
+        });
+        toggleSat.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){schedule.setSat(1);}
+                else{schedule.setSat(0);}
+            }
+        });
     }
+
 
     public void onButton(final View v) {
         switch (v.getId()) {
