@@ -25,11 +25,12 @@
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity">
             <intent-filter>
-                <action android:name="com.example.sjeong.groupapplication.MainActivity"/>
-                <category android:name="android.intent.category.DEFAULT"/>
+                <action android:name="com.example.sjeong.groupapplication.MainActivity" />
 
+                <category android:name="android.intent.category.DEFAULT" />
 
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -45,18 +46,16 @@
         <activity android:name=".PrefSettingActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
-
         <activity
             android:name=".PopupActivity"
-            android:screenOrientation="sensorPortrait"
             android:launchMode="singleInstance"
+            android:screenOrientation="sensorPortrait"
             android:showOnLockScreen="true"
             android:theme="@android:style/Theme.DeviceDefault.Light.Dialog" />
-
 
         <receiver
             android:name=".LaterCall"
@@ -75,14 +74,13 @@
         </receiver>
 
         <activity android:name=".ScheduleActivity" />
-        <activity android:name=".ScheduleSetActivity"></activity>
-        <receiver
-            android:name=".AlarmReceiver">
+        <activity android:name=".ScheduleSetActivity" />
+
+        <receiver android:name=".AlarmReceiver">
             <intent-filter>
-                <action android:name="com.example.saran.realapplication.ALARM_START"/>
+                <action android:name="com.example.saran.realapplication.ALARM_START" />
             </intent-filter>
         </receiver>
-
     </application>
 
 </manifest>

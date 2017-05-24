@@ -86,6 +86,7 @@ public class ScheduleActivity extends AppCompatActivity implements View.OnClickL
                     startActivity(intent);
                     break;
                 case R.id.scheduleon:
+                    Log.i(Tag, "scheduleview "+position);
                     Schedule schedule = dbManager.getSchedule(Integer.parseInt(position));
                     String starttime = schedule.getStart().toString();
                     String endtime = schedule.getEnd().toString();
@@ -130,8 +131,8 @@ public class ScheduleActivity extends AppCompatActivity implements View.OnClickL
                     calEnd.set(calEnd.get(Calendar.YEAR), calEnd.get(Calendar.MONTH) , calEnd.get(Calendar.DATE), endtimeHOUR, endtimeMINUTE,0);
                     Log.i(Tag, " onbutton setting 시간 :  "+endtimeHOUR+"  setting 분 : " +endtimeMINUTE);
                     Log.i(Tag, " 스케줄 종료 시간 :  "+calEnd.getTimeInMillis());
-                    amStartSet(calStart,v,chgMode,startReq,week);
-                    amEndSet(calEnd,v,orgMode,endReq,week);
+                    amStartSet(calStart,v,chgMode,startReq,week,i-1);
+                    amEndSet(calEnd,v,orgMode,endReq,week,i-1);
                     break;
 
                 case R.id.scheduleoff:
@@ -211,7 +212,7 @@ public class ScheduleActivity extends AppCompatActivity implements View.OnClickL
     }
 
     // 알람설정함수
-    public void amStartSet(Calendar calStart, View v,String chgMode,int i,int[] week){ // 시작 스케줄 알람
+    public void amStartSet(Calendar calStart, View v,String chgMode,int i,int[] week, int pos){ // 시작 스케줄 알람
         Log.i(Tag,"set Alarm Start");
         Context context = getApplicationContext();
         am = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
@@ -221,12 +222,14 @@ public class ScheduleActivity extends AppCompatActivity implements View.OnClickL
         intent.putExtra("alReceiver",setRec);
         intent.putExtra("change mode",chgMode);
         intent.putExtra("weekday",week);
+        intent.putExtra("position",pos); // pos = 0부터, id= 1부터
+        intent.putExtra("reqid",i);
         Log.i(Tag, "alarmStart request code is "+i);
         PendingIntent amIntent = PendingIntent.getBroadcast(context, i, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-        am.setRepeating(AlarmManager.RTC_WAKEUP, calStart.getTimeInMillis(),24*60*60*1000,amIntent);
+        am.setExact(AlarmManager.RTC_WAKEUP, calStart.getTimeInMillis(),amIntent);
         Log.i(Tag, " 스케줄 시작 시간 :  "+calStart.getTimeInMillis());
     }
-    public void amEndSet(Calendar calEnd, View v, String orgMode, int i,int[] week){ // 종료 스케줄 알람
+    public void amEndSet(Calendar calEnd, View v, String orgMode, int i,int[] week, int pos){ // 종료 스케줄 알람
         Log.i(Tag,"set Alarm End");
         Context context = getApplicationContext();
         am = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
@@ -236,6 +239,8 @@ public class ScheduleActivity extends AppCompatActivity implements View.OnClickL
         intent2.putExtra("alReceiver",setRec);
         intent2.putExtra("original mode",orgMode);
         intent2.putExtra("weekday",week);
+        intent2.putExtra("position",pos); // pos = 0부터, id= 1부터
+        intent2.putExtra("reqid",i);
         Log.i(Tag, "alarmEnd request code is "+i);
         PendingIntent amIntent2 = PendingIntent.getBroadcast(context, i, intent2, PendingIntent.FLAG_UPDATE_CURRENT);
         am.setExact(AlarmManager.RTC_WAKEUP, calEnd.getTimeInMillis(), amIntent2);
